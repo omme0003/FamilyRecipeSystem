@@ -46,12 +46,4 @@ public interface Recipe {
 
 	public void setIngredients(final Collection<Ingredient> ingredients);
 
-	public List<String> getTags();
-
-	public void setTags(final Collection<String> tags);
-
-	public void addTag(final String tag);
-
-	public void removeTag(final String tag);
-
 }

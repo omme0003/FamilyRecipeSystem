@@ -12,4 +12,5 @@ public interface CommentDao extends AbstractDao<Comment> {
 	public List<Comment> getCommentsByMemberAndRecipe(final int memberId, final int recipeId);
 
 	public Comment getCommentById(final int id);
+
 }

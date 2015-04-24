@@ -1,6 +1,10 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
 public interface IngredientOptions {
+	public int getId();
+
+	public void setId(final int id);
+
 	public int getQuantity();
 
 	public void setQuantity(final int quantity);

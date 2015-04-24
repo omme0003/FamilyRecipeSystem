@@ -5,10 +5,27 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ingredient")
 public class IngredientImpl implements Ingredient {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int id;
+
+	@Column
 	private String name;
+
+	@ManyToOne(targetEntity = IngredientOptionsImpl.class)
 	private final Set<IngredientOptions> ingredientOptions = new HashSet<>();
 
 	@Override

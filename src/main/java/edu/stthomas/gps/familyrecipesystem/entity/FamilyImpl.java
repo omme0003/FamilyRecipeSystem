@@ -19,13 +19,13 @@ public class FamilyImpl implements Family {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "family_id", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private int id;
 
 	@Column(name = "family_name", unique = true, nullable = false)
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "families")
+	@ManyToMany(targetEntity = MemberImpl.class, cascade = CascadeType.ALL, mappedBy = "families")
 	private List<Member> members;
 
 	@Override

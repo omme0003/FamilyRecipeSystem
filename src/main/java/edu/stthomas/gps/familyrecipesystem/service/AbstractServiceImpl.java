@@ -1,5 +1,6 @@
 package edu.stthomas.gps.familyrecipesystem.service;
 
+
 public class AbstractServiceImpl<DaoType> implements AbstractService<DaoType> {
 
 	private DaoType dao;

@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,15 +15,13 @@ public class CommentImpl implements Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private int id;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "member_id", referencedColumnName = "id")
+	@OneToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member member;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "recipe_id", referencedColumnName = "id")
+	@OneToOne(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
 	private Recipe recipe;
 
 	@Column(name = "comment_text", length = 1024)

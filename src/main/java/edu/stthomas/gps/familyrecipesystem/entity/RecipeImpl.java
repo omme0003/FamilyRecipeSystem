@@ -6,22 +6,54 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "recipe")
 public class RecipeImpl implements Recipe {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int id;
+
+	@Column
 	private String name;
+
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
+
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastChanged;
+
+	@OneToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member managedBy;
 
+	@ManyToOne(targetEntity = CommentImpl.class)
 	private final List<Comment> comments;
+
+	@ManyToMany(targetEntity = CommentImpl.class)
 	private final List<Ingredient> ingredients;
-	private final List<String> tags;
+
+	@ManyToOne(targetEntity = RatingImpl.class)
 	private final List<Rating> ratings;
 
 	public RecipeImpl() {
 		this.comments = new LinkedList<>();
 		this.ingredients = new LinkedList<>();
-		this.tags = new LinkedList<>();
 		this.ratings = new LinkedList<>();
 	}
 
@@ -126,27 +158,6 @@ public class RecipeImpl implements Recipe {
 	public final void setIngredients(final Collection<Ingredient> ingredients) {
 		this.ingredients.clear();
 		this.ingredients.addAll(ingredients);
-	}
-
-	@Override
-	public final List<String> getTags() {
-		return Collections.unmodifiableList(this.tags);
-	}
-
-	@Override
-	public final void setTags(final Collection<String> tags) {
-		this.tags.clear();
-		this.tags.addAll(tags);
-	}
-
-	@Override
-	public void addTag(final String tag) {
-		this.tags.add(tag);
-	}
-
-	@Override
-	public void removeTag(final String tag) {
-		this.tags.remove(tag);
 	}
 
 	@Override

@@ -22,25 +22,26 @@ public class MemberImpl implements Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "member_id", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Column(name = "member_first_name")
+	@Column
+	private String password;
+
+	@Column
 	private String firstName;
 
-	@Column(name = "member_last_name")
+	@Column
 	private String lastName;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "recipe_id", referencedColumnName = "id")
+	@OneToMany(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
 	private final List<Recipe> recipes;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL)
 	@JoinTable(name = "member_family", joinColumns = @JoinColumn(name = "family_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
 	private final List<Family> families;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "comment_id", referencedColumnName = "comment_id")
+	@OneToMany(targetEntity = CommentImpl.class, cascade = CascadeType.ALL)
 	private final List<Comment> comments;
 
 	public MemberImpl() {
@@ -57,6 +58,16 @@ public class MemberImpl implements Member {
 	@Override
 	public final void setId(final int id) {
 		this.id = id;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+
+	@Override
+	public void setPassword(final String password) {
+		this.password = password;
 	}
 
 	@Override

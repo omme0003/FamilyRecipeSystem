@@ -9,27 +9,18 @@
 		">
 
 	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName">
-			<value>org.hsqldb.jdbcDriver</value>
-		</property>
-		<property name="url">
-			<value>jdbc:hsqldb:hsql://localhost</value>
-		</property>
-		<property name="username">
-			<value>SA</value>
-		</property>
-		<property name="password">
-			<value></value>
-		</property>
+		<property name="driverClassName"><value>org.hsqldb.jdbcDriver</value></property>
+		<property name="url"><value>jdbc:hsqldb:hsql://localhost</value></property>
+		<property name="username"><value>SA</value></property>
+		<property name="password"><value></value></property>
 	</bean>
 
-	<bean id="mySessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses"> 
 			<list> 
-				<value>edu.stthomas.gps.familyrecipesystem.entity.MemberImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.CommentImpl</value> 
+				<value>edu.stthomas.gps.familyrecipesystem.entity.MemberImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.FamilyImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.IngredientImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.IngredientOptionsImpl</value> 
@@ -51,20 +42,18 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
-	<tx:annotation-driven />
 
 	<!-- Services -->
-	<bean id="commentService"
-		class="edu.stthomas.gps.familyrecipesystem.service.CommentServiceImpl">
+	<bean id="commentService" class="edu.stthomas.gps.familyrecipesystem.service.CommentServiceImpl">
 		<property name="dao" ref="commentDao" />
 	</bean>
 
 	<!-- Transactions -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 
 </beans>

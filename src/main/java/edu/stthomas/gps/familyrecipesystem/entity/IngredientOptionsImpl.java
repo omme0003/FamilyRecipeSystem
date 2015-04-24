@@ -1,10 +1,43 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "IngredientOptions")
 public class IngredientOptionsImpl implements IngredientOptions {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
+	private int id;
+
+	@Column
 	private int quantity;
+
+	@Enumerated(EnumType.STRING)
+	@Column
 	private Unit unit;
+
+	@ManyToOne(targetEntity = IngredientImpl.class)
 	private Ingredient ingredient;
+
+	@ManyToOne(targetEntity = RecipeImpl.class)
 	private Recipe recipe;
+
+	@Override
+	public int getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(final int id) {
+		this.id = id;
+	}
 
 	@Override
 	public final int getQuantity() {

@@ -9,6 +9,10 @@ public interface Member {
 
 	public void setId(final int id);
 
+	public String getPassword();
+
+	public void setPassword(final String password);
+
 	public String getFirstName();
 
 	public void setFirstName(final String firstName);
