@@ -41,6 +41,9 @@
 	<bean id="commentDao" class="edu.stthomas.gps.familyrecipesystem.dao.CommentDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
+	<bean id="memberDao" class="edu.stthomas.gps.familyrecipesystem.dao.MemberDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
 
 
 	<!-- Services -->
