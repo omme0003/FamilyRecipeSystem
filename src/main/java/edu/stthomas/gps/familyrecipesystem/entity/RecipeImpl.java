@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+@Entity(name = "recipe")
 @Table(name = "recipe")
 public class RecipeImpl implements Recipe {
 

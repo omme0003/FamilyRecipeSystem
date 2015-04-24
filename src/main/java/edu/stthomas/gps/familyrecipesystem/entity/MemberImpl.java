@@ -14,10 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "member")
+@Entity(name = "member")
 public class MemberImpl implements Member {
 
 	@Id

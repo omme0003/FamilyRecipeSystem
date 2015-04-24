@@ -2,7 +2,11 @@ package edu.stthomas.gps.familyrecipesystem.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
+@Repository
 public class AbstractDaoImpl<Entity> implements AbstractDao<Entity> {
 	private SessionFactory sessionFactory;
 
