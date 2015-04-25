@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public interface Recipe {
+public interface Recipe extends Entity {
 
 	public int getId();
 

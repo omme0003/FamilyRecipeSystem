@@ -1,6 +1,6 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
-public interface Ingredient {
+public interface Ingredient extends Entity {
 
 	public int getId();
 

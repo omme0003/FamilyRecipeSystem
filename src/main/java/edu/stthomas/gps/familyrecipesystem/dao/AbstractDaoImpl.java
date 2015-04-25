@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public class AbstractDaoImpl<Entity> implements AbstractDao<Entity> {
+public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.entity.Entity> implements AbstractDao<Entity> {
 	private SessionFactory sessionFactory;
 
 	@Override

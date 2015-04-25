@@ -1,6 +1,6 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
-public interface Rating {
+public interface Rating extends Entity {
 	public int getId();
 
 	public void setId(final int id);

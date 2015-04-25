@@ -1,6 +1,6 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
-public interface Comment {
+public interface Comment extends Entity {
 
 	public int getId();
 

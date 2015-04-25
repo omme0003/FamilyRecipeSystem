@@ -3,7 +3,7 @@ package edu.stthomas.gps.familyrecipesystem.entity;
 import java.util.Collection;
 import java.util.List;
 
-public interface Member {
+public interface Member extends Entity {
 
 	public int getId();
 
