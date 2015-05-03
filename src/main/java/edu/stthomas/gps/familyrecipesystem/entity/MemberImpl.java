@@ -36,14 +36,14 @@ public class MemberImpl implements Member {
 	@Column(nullable = false)
 	private String lastName;
 
-	@OneToMany(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL, mappedBy = "managedBy")
 	private final List<Recipe> recipes;
 
 	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "member_family", joinColumns = @JoinColumn(name = "family_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
 	private final List<Family> families;
 
-	@OneToMany(targetEntity = CommentImpl.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = CommentImpl.class, cascade = CascadeType.ALL, mappedBy = "member")
 	private final List<Comment> comments;
 
 	public MemberImpl() {
@@ -132,6 +132,13 @@ public class MemberImpl implements Member {
 	public final void setFamilies(final Collection<Family> families) {
 		this.families.clear();
 		this.families.addAll(families);
+	}
+
+	@Override
+	public final void addFamily(final Family family) {
+		if (!this.families.contains(family)) {
+			this.families.add(family);
+		}
 	}
 
 	@Override

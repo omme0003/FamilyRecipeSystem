@@ -37,6 +37,8 @@ public interface Member extends Entity {
 
 	public void setFamilies(final Collection<Family> families);
 
+	public void addFamily(final Family family);
+
 	public List<Comment> getComments();
 
 	public void setComments(final Collection<Comment> comments);

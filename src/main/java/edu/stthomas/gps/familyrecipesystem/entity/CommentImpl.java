@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "comment")
 public class CommentImpl implements Comment {
@@ -16,10 +16,10 @@ public class CommentImpl implements Comment {
 	@Column(unique = true, nullable = false)
 	private int id;
 
-	@OneToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member member;
 
-	@OneToOne(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
 	private Recipe recipe;
 
 	@Column(name = "comment_text", length = 1024)
