@@ -15,12 +15,15 @@ public class MemberServiceImpl extends AbstractServiceImpl<MemberDao> implements
 	}
 
 	@Override
-	public boolean create(final Member member) {
-		if (member.getPassword().isEmpty() || (this.getDao().getMemberByUserName(member.getUserName()) == null)) {
-			return false;
+	public void create(final Member member) throws RequiredAttributesEmptyException, DuplicateUserException {
+		if (!member.validateRequiredFields()) {
+			throw new RequiredAttributesEmptyException();
 		}
+		if (this.getDao().getMemberByUserName(member.getUserName()) == null) {
+			throw new DuplicateUserException();
+		}
+
 		this.getDao().insert(member);
-		return true;
 	}
 
 	@Override

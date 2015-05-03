@@ -8,4 +8,6 @@ public interface MemberDao extends AbstractDao<Member> {
 
 	public Member getMemberByUserName(final String username);
 
+	public Member getMemberById(int id);
+
 }

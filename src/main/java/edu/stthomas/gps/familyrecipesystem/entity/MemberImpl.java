@@ -188,4 +188,9 @@ public class MemberImpl implements Member {
 		return true;
 	}
 
+	@Override
+	public boolean validateRequiredFields() {
+		return !(this.userName.isEmpty() || this.lastName.isEmpty() || this.firstName.isEmpty() || this.password.isEmpty());
+	}
+
 }

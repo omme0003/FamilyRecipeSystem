@@ -47,4 +47,6 @@ public interface Member extends Entity {
 
 	public void removeComment(final Comment comment);
 
+	public boolean validateRequiredFields();
+
 }

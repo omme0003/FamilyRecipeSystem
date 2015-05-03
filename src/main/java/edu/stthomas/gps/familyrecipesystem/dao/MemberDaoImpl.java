@@ -22,8 +22,23 @@ public class MemberDaoImpl extends AbstractDaoImpl<Member> implements MemberDao 
 
 	@Override
 	public Member getMemberByUserName(final String username) {
-		// TODO Auto-generated method stub
-		return null;
+		final Session session = this.getSessionFactory().getCurrentSession();
+		final List<Member> members = session.createQuery("FROM member WHERE username = ?").setParameter(0, username).list();
+		if (members.isEmpty()) {
+			return null;
+		} else {
+			return members.get(0);
+		}
 	}
 
+	@Override
+	public Member getMemberById(final int id) {
+		final Session session = this.getSessionFactory().getCurrentSession();
+		final List<Member> members = session.createQuery("FROM member WHERE id = ?").setParameter(0, id).list();
+		if (members.isEmpty()) {
+			return null;
+		} else {
+			return members.get(0);
+		}
+	}
 }
