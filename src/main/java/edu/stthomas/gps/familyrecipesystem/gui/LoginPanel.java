@@ -6,6 +6,7 @@ import java.awt.Dimension;
 
 import javax.swing.JTextPane;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -28,7 +29,7 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public LoginPanel(ClassPathXmlApplicationContext CTX) {
+	public LoginPanel(ClassPathXmlApplicationContext CTX, final JFrame parent) {
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(360, 554));
 		setLayout(null);
@@ -68,15 +69,6 @@ public class LoginPanel extends JPanel {
 		passwordField.setSize(new Dimension(280, 21));
 		passwordField.setBounds(34, 260, 288, 21);
 		add(passwordField);
-		
-		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Go to create account screen
-			}
-		});
-		btnCreateAccount.setBounds(179, 349, 133, 45);
-		add(btnCreateAccount);
 		 
 		JTextPane txtpnErrorMessage = new JTextPane();
 		txtpnErrorMessage.setVisible(false);
@@ -105,6 +97,16 @@ public class LoginPanel extends JPanel {
 		});
 		btnLogIn.setBounds(34, 349, 133, 45);
 		add(btnLogIn);
+		
+		JButton btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel panel = new CreateAccountPanel(CTX, parent);
+				parent.frame.getContentPane().add(panel, BorderLayout.CENTER);
+			}
+		});
+		btnCreateAccount.setBounds(179, 349, 133, 45);
+		add(btnCreateAccount);
 
 	}
 }
