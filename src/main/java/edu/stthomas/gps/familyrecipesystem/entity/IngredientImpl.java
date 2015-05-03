@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class IngredientImpl implements Ingredient {
 	@Column(unique = true, nullable = false)
 	private String name;
 
-	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient")
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient", cascade = CascadeType.ALL)
 	private final Set<IngredientOptions> ingredientOptions = new HashSet<>();
 
 	public IngredientImpl() {

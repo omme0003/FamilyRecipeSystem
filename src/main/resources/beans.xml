@@ -25,7 +25,6 @@
 				<value>edu.stthomas.gps.familyrecipesystem.entity.FamilyImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.IngredientImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.IngredientOptionsImpl</value> 
-				<value>edu.stthomas.gps.familyrecipesystem.entity.RatingImpl</value> 
 				<value>edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl</value> 
 			</list> 
 		</property>

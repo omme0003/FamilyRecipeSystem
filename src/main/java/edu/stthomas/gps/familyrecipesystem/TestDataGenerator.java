@@ -7,13 +7,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.stthomas.gps.familyrecipesystem.dao.FamilyDao;
 import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
-import edu.stthomas.gps.familyrecipesystem.dao.RecipeDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.FamilyImpl;
+import edu.stthomas.gps.familyrecipesystem.entity.Ingredient;
+import edu.stthomas.gps.familyrecipesystem.entity.IngredientImpl;
+import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
+import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptionsImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 import edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl;
+import edu.stthomas.gps.familyrecipesystem.entity.Unit;
+import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
 
 public class TestDataGenerator {
 
@@ -87,12 +92,47 @@ public class TestDataGenerator {
 		memberDao.insert(bartSimpson);
 
 		// Recipes
-		final RecipeDao recipeDao = this.ctx.getBean("recipeDao", RecipeDao.class);
+		final RecipeService recipeService = this.ctx.getBean("recipeService", RecipeService.class);
 
 		final Recipe noodleBolognese = new RecipeImpl();
+		final List<IngredientOptions> ingredientOptions = new ArrayList<IngredientOptions>();
+
+		final Ingredient onion = new IngredientImpl();
+		onion.setName("onion");
+		final IngredientOptions option = new IngredientOptionsImpl();
+		option.setIngredient(onion);
+		option.setQuantity(2.5f);
+		option.setRecipe(noodleBolognese);
+		option.setUnit(Unit.PC);
+		ingredientOptions.add(option);
+
+		final Ingredient tomato = new IngredientImpl();
+		tomato.setName("tomato");
+		final IngredientOptions tomatoOption = new IngredientOptionsImpl(2.5f, Unit.PC, tomato, noodleBolognese);
+		ingredientOptions.add(tomatoOption);
+
+		noodleBolognese.setIngredientOptions(ingredientOptions);
 		noodleBolognese.setName("Noodle bolognese");
 		noodleBolognese.setDescription("Description");
 		noodleBolognese.setManagedBy(homerSimpson);
-		recipeDao.insert(noodleBolognese);
+		recipeService.create(noodleBolognese);
+
+		final Recipe bakedPotato = new RecipeImpl();
+		final List<IngredientOptions> ingredientOptions2 = new ArrayList<IngredientOptions>();
+
+		final Ingredient onion2 = new IngredientImpl();
+		onion2.setName("onion");
+		final IngredientOptions option2 = new IngredientOptionsImpl();
+		option2.setIngredient(onion2);
+		option2.setQuantity(3.5f);
+		option2.setRecipe(bakedPotato);
+		option2.setUnit(Unit.PC);
+		ingredientOptions2.add(option2);
+		bakedPotato.setIngredientOptions(ingredientOptions2);
+
+		bakedPotato.setName("Baked potato");
+		bakedPotato.setDescription("Description");
+		bakedPotato.setManagedBy(homerSimpson);
+		recipeService.create(bakedPotato);
 	}
 }

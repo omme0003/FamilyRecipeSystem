@@ -1,5 +1,6 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,13 +27,23 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	@Column
 	private Unit unit;
 
-	@ManyToOne(targetEntity = IngredientImpl.class)
+	@ManyToOne(targetEntity = IngredientImpl.class, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Ingredient ingredient;
 
-	@ManyToOne(targetEntity = RecipeImpl.class)
+	@ManyToOne(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Recipe recipe;
+
+	public IngredientOptionsImpl() {
+	}
+
+	public IngredientOptionsImpl(final float quanity, final Unit unit, final Ingredient ingredient, final Recipe recipe) {
+		this.setIngredient(ingredient);
+		this.setQuantity(quanity);
+		this.setRecipe(recipe);
+		this.setUnit(unit);
+	}
 
 	@Override
 	public int getId() {

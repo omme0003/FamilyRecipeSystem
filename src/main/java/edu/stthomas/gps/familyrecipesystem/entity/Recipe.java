@@ -26,14 +26,6 @@ public interface Recipe extends Entity {
 
 	public void setManagedBy(final Member managedBy);
 
-	public List<Rating> getRatings();
-
-	public void setRatings(final Collection<Rating> ratings);
-
-	public void addRating(final Rating rating);
-
-	public void removeRating(final Rating rating);
-
 	public List<Comment> getComments();
 
 	public void setComments(final Collection<Comment> comments);
@@ -46,7 +38,7 @@ public interface Recipe extends Entity {
 
 	public void setDescription(String description);
 
-	public void setIngredientOption(Collection<IngredientOptions> ingredients);
+	public void setIngredientOptions(Collection<IngredientOptions> ingredients);
 
 	public List<IngredientOptions> getIngredientOptions();
 

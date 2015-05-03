@@ -48,22 +48,17 @@ public class RecipeImpl implements Recipe {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Member managedBy;
 
-	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipe")
+	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Comment> comments;
 
-	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe")
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<IngredientOptions> ingredientOptions;
-
-	@OneToMany(targetEntity = RatingImpl.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private final List<Rating> ratings;
 
 	public RecipeImpl() {
 		this.comments = new LinkedList<>();
 		this.ingredientOptions = new LinkedList<>();
-		this.ratings = new LinkedList<>();
 	}
 
 	@Override
@@ -127,27 +122,6 @@ public class RecipeImpl implements Recipe {
 	}
 
 	@Override
-	public List<Rating> getRatings() {
-		return Collections.unmodifiableList(this.ratings);
-	}
-
-	@Override
-	public void setRatings(final Collection<Rating> ratings) {
-		this.ratings.clear();
-		this.ratings.addAll(ratings);
-	}
-
-	@Override
-	public void addRating(final Rating rating) {
-		this.ratings.add(rating);
-	}
-
-	@Override
-	public void removeRating(final Rating rating) {
-		this.ratings.remove(rating);
-	}
-
-	@Override
 	public final List<Comment> getComments() {
 		return Collections.unmodifiableList(this.comments);
 	}
@@ -174,7 +148,7 @@ public class RecipeImpl implements Recipe {
 	}
 
 	@Override
-	public final void setIngredientOption(final Collection<IngredientOptions> ingredients) {
+	public final void setIngredientOptions(final Collection<IngredientOptions> ingredients) {
 		this.ingredientOptions.clear();
 		this.ingredientOptions.addAll(ingredients);
 	}

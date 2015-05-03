@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.stthomas.gps.familyrecipesystem.FamilyRecipeSystemApplication;
 import edu.stthomas.gps.familyrecipesystem.dao.IngredientDao;
-import edu.stthomas.gps.familyrecipesystem.dao.IngredientDaoImpl;
 import edu.stthomas.gps.familyrecipesystem.dao.RecipeDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Ingredient;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
@@ -20,7 +19,7 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 
 	@Override
 	public void create(final Recipe recipe) {
-		final IngredientDao ingredientDao = FamilyRecipeSystemApplication.getContext().getBean("ingredientDao", IngredientDaoImpl.class);
+		final IngredientDao ingredientDao = FamilyRecipeSystemApplication.getContext().getBean("ingredientDao", IngredientDao.class);
 		final List<IngredientOptions> newIngredientOptions = new ArrayList<IngredientOptions>();
 		for (final IngredientOptions option : recipe.getIngredientOptions()) {
 			final String ingredientName = option.getIngredient().getName();
@@ -30,7 +29,7 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 			}
 			newIngredientOptions.add(option);
 		}
-		recipe.setIngredientOption(newIngredientOptions);
+		recipe.setIngredientOptions(newIngredientOptions);
 
 		this.getDao().saveOrUpdate(recipe);
 	}
