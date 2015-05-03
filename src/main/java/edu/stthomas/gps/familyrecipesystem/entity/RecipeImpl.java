@@ -45,9 +45,11 @@ public class RecipeImpl implements Recipe {
 	private Date lastChanged;
 
 	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Member managedBy;
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipe")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Comment> comments;
 
 	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe")
@@ -55,6 +57,7 @@ public class RecipeImpl implements Recipe {
 	private final List<IngredientOptions> ingredientOptions;
 
 	@OneToMany(targetEntity = RatingImpl.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Rating> ratings;
 
 	public RecipeImpl() {

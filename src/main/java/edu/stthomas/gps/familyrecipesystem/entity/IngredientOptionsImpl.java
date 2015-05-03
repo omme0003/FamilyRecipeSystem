@@ -31,6 +31,7 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	private Ingredient ingredient;
 
 	@ManyToOne(targetEntity = RecipeImpl.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Recipe recipe;
 
 	@Override

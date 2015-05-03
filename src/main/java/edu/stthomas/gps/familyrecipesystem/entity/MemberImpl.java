@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity(name = "member")
 public class MemberImpl implements Member {
@@ -37,13 +39,16 @@ public class MemberImpl implements Member {
 	private String lastName;
 
 	@OneToMany(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL, mappedBy = "managedBy")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Recipe> recipes;
 
-	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL)
 	@JoinTable(name = "member_family", joinColumns = @JoinColumn(name = "family_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Family> families;
 
 	@OneToMany(targetEntity = CommentImpl.class, cascade = CascadeType.ALL, mappedBy = "member")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Comment> comments;
 
 	public MemberImpl() {
