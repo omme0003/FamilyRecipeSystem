@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "ingredient")
 public class IngredientImpl implements Ingredient {
@@ -23,7 +23,7 @@ public class IngredientImpl implements Ingredient {
 	@Column
 	private String name;
 
-	@ManyToOne(targetEntity = IngredientOptionsImpl.class)
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient")
 	private final Set<IngredientOptions> ingredientOptions = new HashSet<>();
 
 	@Override

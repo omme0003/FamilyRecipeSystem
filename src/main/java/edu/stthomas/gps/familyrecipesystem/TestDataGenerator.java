@@ -7,10 +7,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.stthomas.gps.familyrecipesystem.dao.FamilyDao;
 import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
+import edu.stthomas.gps.familyrecipesystem.dao.RecipeDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.FamilyImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
+import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
+import edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl;
 
 public class TestDataGenerator {
 
@@ -21,10 +24,7 @@ public class TestDataGenerator {
 	}
 
 	public void generate() {
-		this.generateMembersAndFamilies();
-	}
-
-	private void generateMembersAndFamilies() {
+		// Families
 		final FamilyDao familyDao = this.ctx.getBean("familyDao", FamilyDao.class);
 		final Family johnson = new FamilyImpl();
 		johnson.setName("Johnson's");
@@ -34,6 +34,7 @@ public class TestDataGenerator {
 		simpson.setName("Simpson");
 		familyDao.insert(simpson);
 
+		// Members
 		final MemberDao memberDao = this.ctx.getBean("memberDao", MemberDao.class);
 		final Member johnJohnson = new MemberImpl();
 		johnJohnson.setUserName("j.johnson");
@@ -82,8 +83,16 @@ public class TestDataGenerator {
 		bartSimpson.setPassword("abc123");
 		families.clear();
 		families.add(simpson);
-		margeSimpson.setFamilies(families);
+		bartSimpson.setFamilies(families);
 		memberDao.insert(bartSimpson);
 
+		// Recipes
+		final RecipeDao recipeDao = this.ctx.getBean("recipeDao", RecipeDao.class);
+
+		final Recipe noodleBolognese = new RecipeImpl();
+		noodleBolognese.setName("Noodle bolognese");
+		noodleBolognese.setDescription("Description");
+		noodleBolognese.setManagedBy(homerSimpson);
+		recipeDao.insert(noodleBolognese);
 	}
 }

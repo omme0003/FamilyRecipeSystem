@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,18 +44,18 @@ public class RecipeImpl implements Recipe {
 	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member managedBy;
 
-	@ManyToOne(targetEntity = CommentImpl.class)
+	@OneToMany(targetEntity = CommentImpl.class)
 	private final List<Comment> comments;
 
-	@ManyToMany(targetEntity = IngredientImpl.class)
-	private final List<Ingredient> ingredients;
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe")
+	private final List<IngredientOptions> ingredientOptions;
 
-	@ManyToOne(targetEntity = RatingImpl.class)
+	@OneToMany(targetEntity = RatingImpl.class)
 	private final List<Rating> ratings;
 
 	public RecipeImpl() {
 		this.comments = new LinkedList<>();
-		this.ingredients = new LinkedList<>();
+		this.ingredientOptions = new LinkedList<>();
 		this.ratings = new LinkedList<>();
 	}
 
@@ -162,14 +162,14 @@ public class RecipeImpl implements Recipe {
 	}
 
 	@Override
-	public final List<Ingredient> getIngredients() {
-		return Collections.unmodifiableList(this.ingredients);
+	public final List<IngredientOptions> getIngredientOptions() {
+		return Collections.unmodifiableList(this.ingredientOptions);
 	}
 
 	@Override
-	public final void setIngredients(final Collection<Ingredient> ingredients) {
-		this.ingredients.clear();
-		this.ingredients.addAll(ingredients);
+	public final void setIngredientOption(final Collection<IngredientOptions> ingredients) {
+		this.ingredientOptions.clear();
+		this.ingredientOptions.addAll(ingredients);
 	}
 
 	@Override

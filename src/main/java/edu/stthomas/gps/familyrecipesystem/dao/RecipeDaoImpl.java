@@ -11,9 +11,7 @@ public class RecipeDaoImpl extends AbstractDaoImpl<Recipe> implements RecipeDao 
 	@Override
 	public List<Recipe> searchByKeyword(final String keyword) {
 		final Session session = this.getSessionFactory().getCurrentSession();
-		// final List<Member> members =
-		// session.createQuery("FROM recipe WHERE name = '%?%' OR  ORDER BY name").setParameter(0,
-		// username).list();
-		return null;
+		return session.createQuery("FROM recipe WHERE name LIKE '%?%' OR description LIKE '%?%' ORDER BY name").setParameter(0, keyword)
+				.setParameter(1, keyword).list();
 	}
 }

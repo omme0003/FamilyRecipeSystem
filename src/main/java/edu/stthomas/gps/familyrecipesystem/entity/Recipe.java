@@ -42,12 +42,12 @@ public interface Recipe extends Entity {
 
 	public void removeComment(final Comment comment);
 
-	public List<Ingredient> getIngredients();
-
-	public void setIngredients(final Collection<Ingredient> ingredients);
-
 	public String getDescription();
 
 	public void setDescription(String description);
+
+	public void setIngredientOption(Collection<IngredientOptions> ingredients);
+
+	public List<IngredientOptions> getIngredientOptions();
 
 }
