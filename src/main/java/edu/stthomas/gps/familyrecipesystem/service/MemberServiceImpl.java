@@ -19,7 +19,7 @@ public class MemberServiceImpl extends AbstractServiceImpl<MemberDao> implements
 		if (!member.validateRequiredFields()) {
 			throw new RequiredAttributesEmptyException();
 		}
-		if (this.getDao().getMemberByUserName(member.getUserName()) == null) {
+		if (this.getDao().getMemberByUserName(member.getUserName()) != null) {
 			throw new DuplicateUserException();
 		}
 

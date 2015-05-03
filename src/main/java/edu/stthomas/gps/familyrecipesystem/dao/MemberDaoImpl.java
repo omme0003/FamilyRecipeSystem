@@ -24,6 +24,7 @@ public class MemberDaoImpl extends AbstractDaoImpl<Member> implements MemberDao 
 	public Member getMemberByUserName(final String username) {
 		final Session session = this.getSessionFactory().getCurrentSession();
 		final List<Member> members = session.createQuery("FROM member WHERE username = ?").setParameter(0, username).list();
+		System.out.println(members.get(0));
 		if (members.isEmpty()) {
 			return null;
 		} else {
