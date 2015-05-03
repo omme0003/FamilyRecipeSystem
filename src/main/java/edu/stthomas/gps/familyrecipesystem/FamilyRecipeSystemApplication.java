@@ -5,10 +5,6 @@ import java.awt.EventQueue;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.stthomas.gps.familyrecipesystem.gui.MainWindow;
-import edu.stthomas.gps.familyrecipesystem.service.MemberService;
-import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
-import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
-import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
 
 public class FamilyRecipeSystemApplication {
 	private final static ClassPathXmlApplicationContext CTX = new ClassPathXmlApplicationContext("beans.xml");
@@ -17,15 +13,17 @@ public class FamilyRecipeSystemApplication {
 		final TestDataGenerator generator = new TestDataGenerator(FamilyRecipeSystemApplication.CTX);
 		generator.generate();
 
-		// new FamilyRecipeSystemApplication();
+		new FamilyRecipeSystemApplication();
 
-		final MemberService memberService = FamilyRecipeSystemApplication.CTX.getBean("memberService", MemberServiceImpl.class);
-		final boolean login = memberService.login("homer", "duff");
-		if (login) {
-			System.out.println("Login successful");
-		} else {
-			System.out.println("Login failed");
-		}
+		// final MemberService memberService =
+		// FamilyRecipeSystemApplication.CTX.getBean("memberService",
+		// MemberServiceImpl.class);
+		// final boolean login = memberService.login("homer", "duff");
+		// if (login) {
+		// System.out.println("Login successful");
+		// } else {
+		// System.out.println("Login failed");
+		// }
 		//
 		// final Member member =
 		// memberService.getDao().getMemberByUserName("homer");
@@ -38,8 +36,11 @@ public class FamilyRecipeSystemApplication {
 		//
 		// System.out.println(AppSession.getInstance().getUser().getFamilies());
 
-		final RecipeService service = FamilyRecipeSystemApplication.CTX.getBean("recipeService", RecipeServiceImpl.class);
-		System.out.println(service.searchByKeyword("noodle"));
+		// final RecipeService service =
+		// FamilyRecipeSystemApplication.CTX.getBean("recipeService",
+		// RecipeServiceImpl.class);
+		// final List<Recipe> recipe = service.searchByKeyword("noodle");
+		// recipe.get(0).getIngredientOptions();
 
 	}
 
