@@ -112,7 +112,7 @@ public class MainWindow {
 		JLayeredPane layeredPane = new JLayeredPane();
 		//frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
 		
-		JPanel panel = new LoginPanel(CTX, this);
+		JPanel panel = new LoginPanel(CTX, frame);
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JScrollPane scrollPaneRecipe = new JScrollPane();

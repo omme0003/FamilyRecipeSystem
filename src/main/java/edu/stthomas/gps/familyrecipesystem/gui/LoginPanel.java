@@ -99,7 +99,7 @@ public class LoginPanel extends JPanel {
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel panel = new CreateAccountPanel(CTX, parent);
-				parent.frame.getContentPane().add(panel, BorderLayout.CENTER);
+				parent.getContentPane().add(panel, BorderLayout.CENTER);
 			}
 		});
 		btnCreateAccount.setBounds(179, 349, 133, 45);
