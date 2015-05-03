@@ -4,11 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity(name = "IngredientOptions")
 public class IngredientOptionsImpl implements IngredientOptions {
@@ -24,7 +26,8 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	@Column
 	private Unit unit;
 
-	@ManyToOne(targetEntity = IngredientImpl.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = IngredientImpl.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Ingredient ingredient;
 
 	@ManyToOne(targetEntity = RecipeImpl.class)

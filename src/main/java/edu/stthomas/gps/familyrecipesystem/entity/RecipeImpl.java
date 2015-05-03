@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity(name = "recipe")
 @Table(name = "recipe")
 public class RecipeImpl implements Recipe {
@@ -48,6 +51,7 @@ public class RecipeImpl implements Recipe {
 	private final List<Comment> comments;
 
 	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<IngredientOptions> ingredientOptions;
 
 	@OneToMany(targetEntity = RatingImpl.class)
@@ -197,11 +201,11 @@ public class RecipeImpl implements Recipe {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		Member member = this.managedBy;
-		return member.getFirstName() + " " + member.getLastName() + "'s " +  this.name;
+		final Member member = this.managedBy;
+		return member.getFirstName() + " " + member.getLastName() + "'s " + this.name;
 	}
 
 }
