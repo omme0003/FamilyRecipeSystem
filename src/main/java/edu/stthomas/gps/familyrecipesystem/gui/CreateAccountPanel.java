@@ -1,14 +1,11 @@
 package edu.stthomas.gps.familyrecipesystem.gui;
 
 import javax.swing.JPanel;
-
+import javax.swing.JFrame;
 import java.awt.Dimension;
-
 import javax.swing.JTextPane;
-
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -32,7 +29,7 @@ public class CreateAccountPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CreateAccountPanel(ClassPathXmlApplicationContext CTX) {
+	public CreateAccountPanel(ClassPathXmlApplicationContext CTX, final JFrame parent) {
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(360, 554));
 		setLayout(null);
