@@ -8,8 +8,24 @@ import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements RecipeService {
 
 	@Override
+	public void update(final Recipe recipe) {
+		this.getDao().update(recipe);
+	}
+
+	@Override
 	public void create(final Recipe recipe) {
-		this.getDao().insert(recipe);
+		// final IngredientDao ingredientDao =
+		// FamilyRecipeSystemApplication.getContext().getBean("ingredientDao",
+		// IngredientDaoImpl.class);
+		// final List<IngredientOptions> newIngredientOptions = new
+		// ArrayList<IngredientOptions>();
+		// for (final IngredientOptions option : recipe.getIngredientOptions())
+		// {
+		// final String ingredientName = option.getIngredient().getName();
+		// final Ingredient ingredient =
+		// ingredientDao.getByName(ingredientName);
+		// option.;
+		// }
 	}
 
 	@Override

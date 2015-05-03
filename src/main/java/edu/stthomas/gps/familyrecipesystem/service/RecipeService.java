@@ -7,6 +7,8 @@ import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 
 public interface RecipeService extends AbstractService<RecipeDao> {
 
+	public void update(final Recipe recipe);
+
 	public void create(final Recipe recipe);
 
 	public List<Recipe> searchByKeyword(final String keyword);
