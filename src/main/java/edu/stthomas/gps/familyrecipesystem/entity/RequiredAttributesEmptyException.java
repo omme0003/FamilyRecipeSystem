@@ -1,4 +1,4 @@
-package edu.stthomas.gps.familyrecipesystem.service;
+package edu.stthomas.gps.familyrecipesystem.entity;
 
 public class RequiredAttributesEmptyException extends Exception {
 

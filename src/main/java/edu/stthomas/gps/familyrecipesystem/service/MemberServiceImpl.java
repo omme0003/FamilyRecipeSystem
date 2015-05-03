@@ -2,7 +2,9 @@ package edu.stthomas.gps.familyrecipesystem.service;
 
 import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
+import edu.stthomas.gps.familyrecipesystem.entity.DuplicateUserException;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
+import edu.stthomas.gps.familyrecipesystem.entity.RequiredAttributesEmptyException;
 
 public class MemberServiceImpl extends AbstractServiceImpl<MemberDao> implements MemberService {
 

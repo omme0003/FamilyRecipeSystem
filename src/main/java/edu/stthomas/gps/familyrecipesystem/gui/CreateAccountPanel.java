@@ -16,14 +16,14 @@ import javax.swing.JButton;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.stthomas.gps.familyrecipesystem.entity.DuplicateUserException;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
-import edu.stthomas.gps.familyrecipesystem.service.DuplicateUserException;
+import edu.stthomas.gps.familyrecipesystem.entity.RequiredAttributesEmptyException;
 import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
-import edu.stthomas.gps.familyrecipesystem.service.RequiredAttributesEmptyException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
