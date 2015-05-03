@@ -44,11 +44,23 @@
 	<bean id="memberDao" class="edu.stthomas.gps.familyrecipesystem.dao.MemberDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
+	<bean id="familyDao" class="edu.stthomas.gps.familyrecipesystem.dao.FamilyDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+	<bean id="recipeDao" class="edu.stthomas.gps.familyrecipesystem.dao.FamilyDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
 
 
 	<!-- Services -->
 	<bean id="commentService" class="edu.stthomas.gps.familyrecipesystem.service.CommentServiceImpl">
 		<property name="dao" ref="commentDao" />
+	</bean>
+	<bean id="memberService" class="edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl">
+		<property name="dao" ref="memberDao" />
+	</bean>
+	<bean id="recipeService" class="edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl">
+		<property name="dao" ref="recipeDao" />
 	</bean>
 
 	<!-- Transactions -->

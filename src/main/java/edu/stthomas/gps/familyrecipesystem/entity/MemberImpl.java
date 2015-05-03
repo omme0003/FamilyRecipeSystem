@@ -23,16 +23,16 @@ public class MemberImpl implements Member {
 	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Column
+	@Column(unique = true, nullable = false)
 	private String userName;
 
-	@Column
+	@Column(nullable = false)
 	private String password;
 
-	@Column
+	@Column(nullable = false)
 	private String firstName;
 
-	@Column
+	@Column(nullable = false)
 	private String lastName;
 
 	@OneToMany(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)

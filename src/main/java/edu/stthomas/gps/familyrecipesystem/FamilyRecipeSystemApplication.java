@@ -2,10 +2,8 @@ package edu.stthomas.gps.familyrecipesystem;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import edu.stthomas.gps.familyrecipesystem.dao.CommentDao;
-import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
-import edu.stthomas.gps.familyrecipesystem.entity.Member;
-import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
+import edu.stthomas.gps.familyrecipesystem.service.MemberService;
+import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 
 public class FamilyRecipeSystemApplication {
 	private final static ClassPathXmlApplicationContext CTX = new ClassPathXmlApplicationContext("beans.xml");
@@ -13,15 +11,16 @@ public class FamilyRecipeSystemApplication {
 	public static void main(final String[] args) {
 		new FamilyRecipeSystemApplication();
 
-		final CommentDao commentDao = (CommentDao) FamilyRecipeSystemApplication.getContext().getBean("commentDao");
-		commentDao.getCommentsByRecipe(1);
+		final TestDataGenerator generator = new TestDataGenerator(FamilyRecipeSystemApplication.CTX);
+		generator.generate();
 
-		final MemberDao memberDao = (MemberDao) FamilyRecipeSystemApplication.getContext().getBean("memberDao");
-		final Member member = new MemberImpl();
-		member.setLastName("Johnson");
-		member.setFirstName("John");
-		member.setPassword("abc123");
-		memberDao.insert(member);
+		final MemberService memberService = FamilyRecipeSystemApplication.CTX.getBean("memberService", MemberServiceImpl.class);
+		final boolean login = memberService.login("homer", "duff");
+		if (login) {
+			System.out.println("Login successfull");
+		} else {
+			System.out.println("Login failed");
+		}
 
 		// final JFrame frame = new JFrame("Test");
 		// frame.show();
