@@ -2,29 +2,39 @@ package edu.stthomas.gps.familyrecipesystem.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+
 import java.awt.Dimension;
+
 import javax.swing.JTextPane;
+
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.stthomas.gps.familyrecipesystem.entity.Family;
+import edu.stthomas.gps.familyrecipesystem.entity.Member;
+import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
+import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
+
 import javax.swing.JComboBox;
 
 public class CreateAccountPanel extends JPanel {
 	private JTextField textFieldFirstName;
 	private JPasswordField passwordFieldConfirm;
 	private JPasswordField passwordField;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textFieldLastName;
+	private JTextField textFieldUsername;
 
 	/**
 	 * Create the panel.
@@ -70,15 +80,6 @@ public class CreateAccountPanel extends JPanel {
 		passwordFieldConfirm.setBounds(40, 410, 288, 21);
 		add(passwordFieldConfirm);
 		
-		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Go to create account screen
-			}
-		});
-		btnCreateAccount.setBounds(36, 478, 276, 45);
-		add(btnCreateAccount);
-		
 		JTextPane txtpnErrorMessage = new JTextPane();
 		txtpnErrorMessage.setVisible(false);
 		txtpnErrorMessage.setEditable(false);
@@ -109,11 +110,11 @@ public class CreateAccountPanel extends JPanel {
 		txtpnLastName.setBounds(42, 189, 83, 16);
 		add(txtpnLastName);
 		
-		textField = new JTextField();
-		textField.setSize(new Dimension(280, 21));
-		textField.setColumns(10);
-		textField.setBounds(40, 210, 288, 21);
-		add(textField);
+		textFieldLastName = new JTextField();
+		textFieldLastName.setSize(new Dimension(280, 21));
+		textFieldLastName.setColumns(10);
+		textFieldLastName.setBounds(40, 210, 288, 21);
+		add(textFieldLastName);
 		
 		JTextPane textPane_1 = new JTextPane();
 		textPane_1.setText("Username:");
@@ -123,23 +124,49 @@ public class CreateAccountPanel extends JPanel {
 		textPane_1.setBounds(42, 289, 66, 16);
 		add(textPane_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setSize(new Dimension(280, 21));
-		textField_1.setColumns(10);
-		textField_1.setBounds(40, 310, 288, 21);
-		add(textField_1);
+		textFieldUsername = new JTextField();
+		textFieldUsername.setSize(new Dimension(280, 21));
+		textFieldUsername.setColumns(10);
+		textFieldUsername.setBounds(40, 310, 288, 21);
+		add(textFieldUsername);
 		
 		JTextPane txtpnFamilies = new JTextPane();
-		txtpnFamilies.setText("Families:");
+		txtpnFamilies.setText("Family:");
 		txtpnFamilies.setFocusTraversalKeysEnabled(false);
 		txtpnFamilies.setEditable(false);
 		txtpnFamilies.setBackground(Color.WHITE);
 		txtpnFamilies.setBounds(42, 239, 83, 16);
 		add(txtpnFamilies);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Family> comboBox = new JComboBox<Family>();
 		comboBox.setBounds(40, 260, 284, 27);
+		List<Family> families = CTX.getBean("familyService", FamilyServiceImpl.class).getAllFamilies();
+		for(Family family: families) {
+			comboBox.addItem(family);
+		}
 		add(comboBox);
+		
+		JButton btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String password = String.valueOf(passwordField.getPassword());
+				String passwordCheck = String.valueOf(passwordFieldConfirm.getPassword());
+				if (password.equals(passwordCheck)) {
+					Member member = new MemberImpl();
+					member.setUserName(textFieldUsername.getText());
+					member.setFirstName(textFieldFirstName.getText());
+					member.setLastName(textFieldLastName.getText());
+					member.setPassword(String.valueOf(passwordField.getPassword()));
+					member.addFamily((Family)comboBox.getSelectedItem());
+					CTX.getBean("memberService", MemberServiceImpl.class).create(member);
+				} else {
+					txtpnErrorMessage.setText("Passwords don't match");
+					txtpnErrorMessage.setVisible(true);
+				}
+			}
+		});
+		btnCreateAccount.setBounds(36, 478, 276, 45);
+		add(btnCreateAccount);
 
 	}
 }

@@ -40,6 +40,27 @@ public class MainWindow {
 		this.frame.setBounds(100, 100, 360, 640);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		final JPanel panel = new LoginPanel(this.CTX, this);
+		this.frame.getContentPane().add(panel, BorderLayout.CENTER);
+		
+		addToolbar();
+
+	}
+
+	public void setVisible(final boolean visible) {
+		this.frame.setVisible(visible);
+	}
+
+	public void setPanel(final JPanel oldPanel, final JPanel newPanel) {
+		SwingUtilities.invokeLater(() -> {
+			this.frame.remove(oldPanel);
+			MainWindow.this.frame.getContentPane().add(newPanel, BorderLayout.CENTER);
+			MainWindow.this.frame.revalidate();
+			MainWindow.this.frame.repaint();
+		});
+	}
+	
+	private void addToolbar() {
 		final JToolBar toolBar = new JToolBar();
 		toolBar.setBackground(Color.BLACK);
 		toolBar.setFloatable(false);
@@ -78,25 +99,5 @@ public class MainWindow {
 		btnRecipes.setForeground(Color.WHITE);
 		btnRecipes.setBorderPainted(false);
 		toolBar.add(btnRecipes);
-
-		final JLayeredPane layeredPane = new JLayeredPane();
-		// frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
-
-		final JPanel panel = new LoginPanel(this.CTX, this);
-		this.frame.getContentPane().add(panel, BorderLayout.CENTER);
-
-	}
-
-	public void setVisible(final boolean visible) {
-		this.frame.setVisible(visible);
-	}
-
-	public void setPanel(final JPanel panel) {
-		SwingUtilities.invokeLater(() -> {
-			MainWindow.this.frame.setContentPane(panel);
-			MainWindow.this.frame.revalidate();
-			MainWindow.this.frame.repaint();
-		});
-
 	}
 }
