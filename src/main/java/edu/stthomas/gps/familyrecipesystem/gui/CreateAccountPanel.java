@@ -29,7 +29,7 @@ public class CreateAccountPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CreateAccountPanel(ClassPathXmlApplicationContext CTX, final JFrame parent) {
+	public CreateAccountPanel(ClassPathXmlApplicationContext CTX, final MainWindow parent) {
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(360, 554));
 		setLayout(null);

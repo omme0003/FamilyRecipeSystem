@@ -26,7 +26,7 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public LoginPanel(ClassPathXmlApplicationContext CTX, final JFrame parent) {
+	public LoginPanel(ClassPathXmlApplicationContext CTX, final MainWindow parent) {
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(360, 554));
 		setLayout(null);
@@ -99,10 +99,7 @@ public class LoginPanel extends JPanel {
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel panel = new CreateAccountPanel(CTX, parent);
-				parent.removeAll();
-				parent.getContentPane().add(panel, BorderLayout.CENTER);
-				parent.revalidate();
-				parent.repaint();
+				parent.setPanel(panel);
 			}
 		});
 		btnCreateAccount.setBounds(179, 349, 133, 45);

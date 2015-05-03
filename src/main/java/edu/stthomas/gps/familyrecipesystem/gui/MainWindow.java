@@ -84,39 +84,19 @@ public class MainWindow {
 		final JLayeredPane layeredPane = new JLayeredPane();
 		// frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
 
-		final JPanel panel = new LoginPanel(this.CTX, this.frame);
-		this.frame.getContentPane().add(panel, BorderLayout.CENTER);
-
-		final JScrollPane scrollPaneRecipe = new JScrollPane();
-		layeredPane.setLayer(scrollPaneRecipe, 0);
-		scrollPaneRecipe.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPaneRecipe.setBounds(0, 0, 360, 554);
-		layeredPane.add(scrollPaneRecipe);
-
-		final JPanel panelSearch = new JPanel();
-		panelSearch.setBackground(new Color(245, 222, 179));
-		layeredPane.setLayer(panelSearch, 1);
-		panelSearch.setBounds(0, 0, 360, 554);
-		layeredPane.add(panelSearch);
-		panelSearch.setLayout(null);
-
-		final JTextPane txtpnSearchRecipesAnd = new JTextPane();
-		txtpnSearchRecipesAnd.setBackground(new Color(245, 222, 179));
-		txtpnSearchRecipesAnd.setText("Search Recipes and People:");
-		txtpnSearchRecipesAnd.setBounds(18, 19, 179, 22);
-		panelSearch.add(txtpnSearchRecipesAnd);
-
-		this.textField_1 = new JTextField();
-		this.textField_1.setBounds(18, 43, 314, 28);
-		panelSearch.add(this.textField_1);
-		this.textField_1.setColumns(10);
-
-		final JButton btnSearch_1 = new JButton("Search");
-		btnSearch_1.setBounds(18, 83, 314, 43);
-		panelSearch.add(btnSearch_1);
+		final JPanel panel = new LoginPanel(this.CTX, this);
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		
 	}
 
 	public void setVisible(final boolean visible) {
 		this.frame.setVisible(visible);
+	}
+	
+	public void setPanel(JPanel panel) {
+		frame.removeAll();
+		frame.getContentPane().add(panel);
+		frame.revalidate();
+		frame.repaint();
 	}
 }
