@@ -17,7 +17,7 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	private int id;
 
 	@Column
-	private int quantity;
+	private float quantity;
 
 	@Enumerated(EnumType.STRING)
 	@Column
@@ -40,12 +40,17 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	}
 
 	@Override
-	public final int getQuantity() {
+	public final float getQuantity() {
 		return this.quantity;
 	}
 
 	@Override
-	public final void setQuantity(final int quantity) {
+	public String getQuantityFormatted() {
+		return String.format("%.02f", this.quantity);
+	}
+
+	@Override
+	public final void setQuantity(final float quantity) {
 		this.quantity = quantity;
 	}
 

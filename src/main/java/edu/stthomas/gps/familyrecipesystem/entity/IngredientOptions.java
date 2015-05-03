@@ -5,9 +5,11 @@ public interface IngredientOptions extends Entity {
 
 	public void setId(final int id);
 
-	public int getQuantity();
+	public float getQuantity();
 
-	public void setQuantity(final int quantity);
+	public String getQuantityFormatted();
+
+	public void setQuantity(final float quantity);
 
 	public Unit getUnit();
 
