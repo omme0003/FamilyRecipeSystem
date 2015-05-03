@@ -20,11 +20,19 @@ public class IngredientImpl implements Ingredient {
 	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Column
+	@Column(unique = true, nullable = false)
 	private String name;
 
 	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient")
 	private final Set<IngredientOptions> ingredientOptions = new HashSet<>();
+
+	public IngredientImpl() {
+
+	}
+
+	public IngredientImpl(final String name) {
+		this.setName(name);
+	}
 
 	@Override
 	public final int getId() {
