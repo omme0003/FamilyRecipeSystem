@@ -4,32 +4,46 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Insets;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JList;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTextField txtUsername;
 	private JPasswordField passwordField;
-	private JTextField textField;
-	private JPasswordField passwordField_1;
-	private JPasswordField passwordField_2;
+	private JTextField textCreateUsername;
+	private JPasswordField pwCreatePassword;
+	private JPasswordField pwCreateConfirmPassword;
 	private JTextField textField_1;
+	private JTextField textCreateFirstName;
+	private JTextField textCreateLastName;
+	private final ClassPathXmlApplicationContext CTX = new ClassPathXmlApplicationContext("beans.xml");
 
 	/**
 	 * Launch the application.
@@ -103,17 +117,20 @@ public class MainWindow {
 		toolBar.add(btnRecipes);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
+		//frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
+		
+		JPanel panel = new LoginPanel(CTX);
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JScrollPane scrollPaneRecipe = new JScrollPane();
-		layeredPane.setLayer(scrollPaneRecipe, 3);
+		layeredPane.setLayer(scrollPaneRecipe, 0);
 		scrollPaneRecipe.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneRecipe.setBounds(0, 0, 360, 554);
 		layeredPane.add(scrollPaneRecipe);
 		
 		JPanel panelSearch = new JPanel();
 		panelSearch.setBackground(new Color(245, 222, 179));
-		layeredPane.setLayer(panelSearch, 4);
+		layeredPane.setLayer(panelSearch, 1);
 		panelSearch.setBounds(0, 0, 360, 554);
 		layeredPane.add(panelSearch);
 		panelSearch.setLayout(null);
@@ -133,10 +150,6 @@ public class MainWindow {
 		btnSearch_1.setBounds(18, 83, 314, 43);
 		panelSearch.add(btnSearch_1);
 		
-		JList listRecipeResults = new JList();
-		listRecipeResults.setBounds(21, 138, 311, 398);
-		panelSearch.add(listRecipeResults);
-		
 		JPanel panelCreate = new JPanel();
 		layeredPane.setLayer(panelCreate, 2);
 		panelCreate.setBounds(0, 0, 360, 554);
@@ -154,58 +167,68 @@ public class MainWindow {
 		textPane.setBounds(65, 50, 229, 39);
 		panelCreate.add(textPane);
 		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.LEFT);
-		textField.setColumns(10);
-		textField.setBounds(40, 223, 280, 28);
-		panelCreate.add(textField);
+		textCreateUsername = new JTextField();
+		textCreateUsername.setHorizontalAlignment(SwingConstants.LEFT);
+		textCreateUsername.setColumns(10);
+		textCreateUsername.setBounds(40, 173, 280, 28);
+		panelCreate.add(textCreateUsername);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setHorizontalAlignment(SwingConstants.LEFT);
-		passwordField_1.setBounds(40, 281, 280, 28);
-		panelCreate.add(passwordField_1);
+		pwCreatePassword = new JPasswordField();
+		pwCreatePassword.setHorizontalAlignment(SwingConstants.LEFT);
+		pwCreatePassword.setBounds(40, 347, 280, 28);
+		panelCreate.add(pwCreatePassword);
 		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setText("Username:");
-		textPane_1.setFocusTraversalKeysEnabled(false);
-		textPane_1.setEditable(false);
-		textPane_1.setBackground(new Color(245, 222, 179));
-		textPane_1.setBounds(40, 205, 66, 16);
-		panelCreate.add(textPane_1);
+		JTextPane txtpnFirstName = new JTextPane();
+		txtpnFirstName.setText("Username:");
+		txtpnFirstName.setFocusTraversalKeysEnabled(false);
+		txtpnFirstName.setEditable(false);
+		txtpnFirstName.setBackground(new Color(245, 222, 179));
+		txtpnFirstName.setBounds(40, 155, 84, 16);
+		panelCreate.add(txtpnFirstName);
 		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setText("Password:");
-		textPane_2.setFocusTraversalKeysEnabled(false);
-		textPane_2.setEditable(false);
-		textPane_2.setBackground(new Color(245, 222, 179));
-		textPane_2.setBounds(40, 263, 66, 16);
-		panelCreate.add(textPane_2);
+		JTextPane txtpnCreatePassword = new JTextPane();
+		txtpnCreatePassword.setText("Password:");
+		txtpnCreatePassword.setFocusTraversalKeysEnabled(false);
+		txtpnCreatePassword.setEditable(false);
+		txtpnCreatePassword.setBackground(new Color(245, 222, 179));
+		txtpnCreatePassword.setBounds(40, 329, 66, 16);
+		panelCreate.add(txtpnCreatePassword);
 		
-		JButton button_1 = new JButton("Create Account");
-		button_1.setBounds(40, 423, 280, 39);
-		panelCreate.add(button_1);
+		JButton btnCreate = new JButton("Create Account");
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * Create user
+				 * If input is valid, add the user to the database and log in
+				 * If input is invalid, set the text of txtpnCreateErrorMessage
+				 * to explain why the user is invalid
+				 */
+			}
+		});
+		btnCreate.setBounds(40, 489, 280, 39);
+		panelCreate.add(btnCreate);
 		
-		JTextPane txtpnErrorMessage = new JTextPane();
-		txtpnErrorMessage.setVisible(false);
-		txtpnErrorMessage.setText("Error Message");
-		txtpnErrorMessage.setForeground(Color.RED);
-		txtpnErrorMessage.setEditable(false);
-		txtpnErrorMessage.setBackground(new Color(245, 222, 179));
-		txtpnErrorMessage.setBounds(40, 383, 280, 28);
-		panelCreate.add(txtpnErrorMessage);
+		JTextPane txtpnCreateErrorMessage = new JTextPane();
+		txtpnCreateErrorMessage.setVisible(false);
+		txtpnCreateErrorMessage.setText("Error Message");
+		txtpnCreateErrorMessage.setForeground(Color.RED);
+		txtpnCreateErrorMessage.setEditable(false);
+		txtpnCreateErrorMessage.setBackground(new Color(245, 222, 179));
+		txtpnCreateErrorMessage.setBounds(40, 449, 280, 28);
+		panelCreate.add(txtpnCreateErrorMessage);
 		
-		passwordField_2 = new JPasswordField();
-		passwordField_2.setHorizontalAlignment(SwingConstants.LEFT);
-		passwordField_2.setBounds(40, 339, 280, 28);
-		panelCreate.add(passwordField_2);
+		pwCreateConfirmPassword = new JPasswordField();
+		pwCreateConfirmPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		pwCreateConfirmPassword.setBounds(40, 405, 280, 28);
+		panelCreate.add(pwCreateConfirmPassword);
 		
-		JTextPane txtpnConfirmPassword = new JTextPane();
-		txtpnConfirmPassword.setText("Confirm Password:");
-		txtpnConfirmPassword.setFocusTraversalKeysEnabled(false);
-		txtpnConfirmPassword.setEditable(false);
-		txtpnConfirmPassword.setBackground(new Color(245, 222, 179));
-		txtpnConfirmPassword.setBounds(40, 321, 131, 16);
-		panelCreate.add(txtpnConfirmPassword);
+		JTextPane txtpnCreateConfirmPassword = new JTextPane();
+		txtpnCreateConfirmPassword.setText("Confirm Password:");
+		txtpnCreateConfirmPassword.setFocusTraversalKeysEnabled(false);
+		txtpnCreateConfirmPassword.setEditable(false);
+		txtpnCreateConfirmPassword.setBackground(new Color(245, 222, 179));
+		txtpnCreateConfirmPassword.setBounds(40, 387, 131, 16);
+		panelCreate.add(txtpnCreateConfirmPassword);
 		
 		JTextPane txtpnCreateAccount = new JTextPane();
 		txtpnCreateAccount.setFont(new Font("Cronos Pro", Font.PLAIN, 20));
@@ -215,10 +238,38 @@ public class MainWindow {
 		txtpnCreateAccount.setBounds(114, 102, 123, 28);
 		panelCreate.add(txtpnCreateAccount);
 		
+		textCreateFirstName = new JTextField();
+		textCreateFirstName.setHorizontalAlignment(SwingConstants.LEFT);
+		textCreateFirstName.setColumns(10);
+		textCreateFirstName.setBounds(40, 231, 280, 28);
+		panelCreate.add(textCreateFirstName);
+		
+		JTextPane txtpnLastName = new JTextPane();
+		txtpnLastName.setText("First Name:");
+		txtpnLastName.setFocusTraversalKeysEnabled(false);
+		txtpnLastName.setEditable(false);
+		txtpnLastName.setBackground(new Color(245, 222, 179));
+		txtpnLastName.setBounds(40, 213, 84, 16);
+		panelCreate.add(txtpnLastName);
+		
+		JTextPane textPane_1 = new JTextPane();
+		textPane_1.setText("Last Name:");
+		textPane_1.setFocusTraversalKeysEnabled(false);
+		textPane_1.setEditable(false);
+		textPane_1.setBackground(new Color(245, 222, 179));
+		textPane_1.setBounds(40, 271, 84, 16);
+		panelCreate.add(textPane_1);
+		
+		textCreateLastName = new JTextField();
+		textCreateLastName.setHorizontalAlignment(SwingConstants.LEFT);
+		textCreateLastName.setColumns(10);
+		textCreateLastName.setBounds(40, 289, 280, 28);
+		panelCreate.add(textCreateLastName);
+		
 		JPanel panelLogin = new JPanel();
 		panelLogin.setFocusTraversalPolicyProvider(true);
 		panelLogin.setBackground(new Color(245, 222, 179));
-		layeredPane.setLayer(panelLogin, 1);
+		layeredPane.setLayer(panelLogin, 4);
 		panelLogin.setBounds(0, 0, 360, 554);
 		layeredPane.add(panelLogin);
 		panelLogin.setLayout(null);
