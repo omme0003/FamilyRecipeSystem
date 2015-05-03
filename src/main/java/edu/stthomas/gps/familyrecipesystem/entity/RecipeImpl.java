@@ -44,7 +44,7 @@ public class RecipeImpl implements Recipe {
 	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member managedBy;
 
-	@OneToMany(targetEntity = CommentImpl.class)
+	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipe")
 	private final List<Comment> comments;
 
 	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe")
