@@ -1,5 +1,7 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "comment")
 public class CommentImpl implements Comment {
@@ -24,6 +28,10 @@ public class CommentImpl implements Comment {
 
 	@Column(name = "comment_text", length = 1024)
 	private String text;
+
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date created;
 
 	@Override
 	public int getId() {
@@ -63,6 +71,16 @@ public class CommentImpl implements Comment {
 	@Override
 	public void setText(final String text) {
 		this.text = text;
+	}
+
+	@Override
+	public final Date getCreated() {
+		return this.created;
+	}
+
+	@Override
+	public final void setCreated(final Date created) {
+		this.created = created;
 	}
 
 	@Override

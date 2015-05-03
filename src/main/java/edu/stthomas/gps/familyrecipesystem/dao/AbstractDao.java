@@ -12,4 +12,5 @@ public interface AbstractDao<Entity extends edu.stthomas.gps.familyrecipesystem.
 	public void update(final Entity entity);
 
 	public void delete(final Entity entity);
+
 }

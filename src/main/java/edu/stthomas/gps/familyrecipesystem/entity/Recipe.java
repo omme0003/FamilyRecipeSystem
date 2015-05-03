@@ -46,4 +46,8 @@ public interface Recipe extends Entity {
 
 	public void setIngredients(final Collection<Ingredient> ingredients);
 
+	public String getDescription();
+
+	public void setDescription(String description);
+
 }

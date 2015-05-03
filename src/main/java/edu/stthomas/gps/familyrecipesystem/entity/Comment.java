@@ -1,5 +1,7 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
+import java.util.Date;
+
 public interface Comment extends Entity {
 
 	public int getId();
@@ -17,4 +19,8 @@ public interface Comment extends Entity {
 	public String getText();
 
 	public void setText(final String text);
+
+	public Date getCreated();
+
+	public void setCreated(final Date created);
 }

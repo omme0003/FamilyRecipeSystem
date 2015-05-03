@@ -31,6 +31,9 @@ public class RecipeImpl implements Recipe {
 	private String name;
 
 	@Column
+	private String description;
+
+	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
@@ -74,6 +77,16 @@ public class RecipeImpl implements Recipe {
 	@Override
 	public final void setName(final String name) {
 		this.name = name;
+	}
+
+	@Override
+	public final String getDescription() {
+		return this.description;
+	}
+
+	@Override
+	public final void setDescription(final String description) {
+		this.description = description;
 	}
 
 	@Override
