@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.stthomas.gps.familyrecipesystem.AppSession;
+import edu.stthomas.gps.familyrecipesystem.entity.Comment;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
@@ -24,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.UIManager;
@@ -37,6 +39,7 @@ public class RecipePanel extends JPanel {
 		setSize(new Dimension(360, 554));
 		setLayout(null);
 		
+		int recipeFormatRow = 0;
 		boolean canEdit = (AppSession.getInstance().getUser().getId() != recipe.getManagedBy().getId());
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -44,54 +47,88 @@ public class RecipePanel extends JPanel {
 		add(scrollPane);
 		
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.anchor = GridBagConstraints.NORTH;
+		constraints.weightx = 1;
 		scrollPane.setViewportView(panel);
 		
 		JTextPane recipeName = new JTextPane();
 		JTextPane ingredientQuant;
 		JComboBox<Unit> ingredientUnit;
 		JTextPane ingredientName;
+		JTextPane commentText;
 		
 		recipeName.setBackground(UIManager.getColor("InternalFrame.background"));
 		recipeName.setText(recipe.getName());
 		recipeName.setEditable(canEdit);
-		panel.add(recipeName);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridwidth = 3;
+		constraints.gridx = 0;
+		constraints.gridy = recipeFormatRow;
+		constraints.weighty = 0.05;
+		panel.add(recipeName, constraints);
+		recipeFormatRow++;
 		
-		JPanel ingredientPanel = new JPanel();
-		ingredientPanel.setLayout(new GridBagLayout());
-		panel.add(ingredientPanel);
-		GridBagConstraints constraints;
-		int ingredientRow = 0;
-		
-		for(IngredientOptions ig: recipe.getIngredientOptions()) {
-			constraints = new GridBagConstraints();
+		List<IngredientOptions> ingredientOptions = recipe.getIngredientOptions();
+		for(IngredientOptions ig: ingredientOptions) {
 			
 			ingredientQuant = new JTextPane();
 			ingredientQuant.setText(ig.getQuantityFormatted());
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.gridwidth = 1;
 			constraints.gridx = 0;
-			constraints.gridy = ingredientRow;
+			constraints.gridy = recipeFormatRow;
 			ingredientQuant.setEditable(canEdit);
-			ingredientPanel.add(ingredientQuant, constraints);
+			panel.add(ingredientQuant, constraints);
 			
 			ingredientUnit = new JComboBox<Unit>();
 			for (Unit unit: Unit.values()) {
 				ingredientUnit.addItem(unit);
 			}
 			ingredientUnit.setSelectedItem(ig.getUnit());
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.gridwidth = 1;
 			constraints.gridx = 1;
-			constraints.gridy = ingredientRow;
+			constraints.gridy = recipeFormatRow;
 			ingredientUnit.setEditable(canEdit);
-			ingredientPanel.add(ingredientUnit, constraints);
+			panel.add(ingredientUnit, constraints);
 			
 			ingredientName = new JTextPane();
 			ingredientName.setText(ig.getIngredient().getName());
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.gridwidth = 1;
 			constraints.gridx = 2;
-			constraints.gridy = ingredientRow;
+			constraints.gridy = recipeFormatRow;
 			ingredientName.setEditable(canEdit);
-			ingredientPanel.add(ingredientName, constraints);
+			panel.add(ingredientName, constraints);
 			
-			ingredientRow++;
+			recipeFormatRow++;
 		}
 		
+		JTextPane recipeDescription = new JTextPane();
+		recipeDescription.setText(recipe.getDescription());
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridwidth = 3;
+		constraints.gridx = 0;
+		constraints.gridy = recipeFormatRow;
+		constraints.weighty = 1;
+		panel.add(recipeDescription, constraints);
+		recipeFormatRow++;
+		
+		List<Comment> commentList = recipe.getComments();
+		for(Comment comment: commentList) {
+			commentText = new JTextPane();
+			commentText.setText(comment.getText());
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.gridwidth = 3;
+			constraints.gridx = 0;
+			constraints.gridy = recipeFormatRow;
+			constraints.weighty = 0.05;
+			panel.add(commentText, constraints);
+			
+			recipeFormatRow++;
+		}
 
 	}
 }
