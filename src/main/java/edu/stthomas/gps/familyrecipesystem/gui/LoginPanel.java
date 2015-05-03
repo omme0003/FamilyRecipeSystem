@@ -2,11 +2,15 @@ package edu.stthomas.gps.familyrecipesystem.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+
 import java.awt.Dimension;
+
 import javax.swing.JTextPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -85,7 +89,8 @@ public class LoginPanel extends JPanel {
 				MemberService memberService = CTX.getBean("memberService", MemberServiceImpl.class);
 				status = memberService.login(username, password);
 				if (status) {
-					
+					JPanel panel = new SearchPanel(CTX, parent);
+					parent.setPanel(LoginPanel.this, panel);
 				} else {
 					txtpnErrorMessage.setVisible(true);
 					txtpnErrorMessage.setText("Invalid credentials");
