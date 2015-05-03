@@ -38,4 +38,10 @@ public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.
 		session.save(entity);
 	}
 
+	@Override
+	public void saveOrUpdate(final Entity entity) {
+		final Session session = this.sessionFactory.getCurrentSession();
+		session.save(entity);
+	}
+
 }

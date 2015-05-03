@@ -21,6 +21,7 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 	@Override
 	public void create(final Recipe recipe) {
 		final IngredientDao ingredientDao = FamilyRecipeSystemApplication.getContext().getBean("ingredientDao", IngredientDaoImpl.class);
+		final List<IngredientOptions> newIngredientOptions = new ArrayList<IngredientOptions>();
 		for (final IngredientOptions option : recipe.getIngredientOptions()) {
 			final String ingredientName = option.getIngredient().getName();
 			final Ingredient ingredient = ingredientDao.getByName(ingredientName);
@@ -29,6 +30,9 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 			}
 			newIngredientOptions.add(option);
 		}
+		recipe.setIngredientOption(newIngredientOptions);
+
+		this.getDao().saveOrUpdate(recipe);
 	}
 
 	@Override
