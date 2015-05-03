@@ -9,6 +9,10 @@ public interface Member extends Entity {
 
 	public void setId(final int id);
 
+	public String getUserName();
+
+	public void setUserName(final String userName);
+
 	public String getPassword();
 
 	public void setPassword(final String password);

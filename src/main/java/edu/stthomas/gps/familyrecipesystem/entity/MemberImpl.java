@@ -24,6 +24,9 @@ public class MemberImpl implements Member {
 	private int id;
 
 	@Column
+	private String userName;
+
+	@Column
 	private String password;
 
 	@Column
@@ -56,6 +59,16 @@ public class MemberImpl implements Member {
 	@Override
 	public final void setId(final int id) {
 		this.id = id;
+	}
+
+	@Override
+	public final String getUserName() {
+		return this.userName;
+	}
+
+	@Override
+	public final void setUserName(final String userName) {
+		this.userName = userName;
 	}
 
 	@Override
@@ -166,4 +179,5 @@ public class MemberImpl implements Member {
 		}
 		return true;
 	}
+
 }
