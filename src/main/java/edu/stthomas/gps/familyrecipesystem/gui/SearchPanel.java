@@ -39,7 +39,6 @@ public class SearchPanel extends JPanel {
 		setLayout(null);
 		
 		txtSearchText = new JTextField();
-		txtSearchText.setText("Search text...");
 		txtSearchText.setBounds(21, 28, 227, 28);
 		add(txtSearchText);
 		txtSearchText.setColumns(10);
@@ -54,8 +53,9 @@ public class SearchPanel extends JPanel {
 		MouseListener mouseListener = new MouseAdapter() {
 		    public void mouseClicked(MouseEvent event) {
 		        if (event.getClickCount() == 2) {
-		        	// listResults.getSelectedItem();
-		        	// Go to selected recipe
+		        	Recipe recipe = listResults.getSelectedValue();
+		        	JPanel panel = new RecipePanel(CTX, parent, recipe);
+					parent.setPanel(SearchPanel.this, panel);
 		        }
 		    }
 		};
@@ -63,8 +63,9 @@ public class SearchPanel extends JPanel {
 		
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
-			String searchText = txtSearchText.getText();
 			public void actionPerformed(ActionEvent e) {
+				listModel.removeAllElements();
+				String searchText = txtSearchText.getText();
 				RecipeService recipeService = CTX.getBean("recipeService", RecipeServiceImpl.class);
 				List<Recipe> recipes = recipeService.searchByKeyword(searchText);
 				for(Recipe recipe: recipes) {

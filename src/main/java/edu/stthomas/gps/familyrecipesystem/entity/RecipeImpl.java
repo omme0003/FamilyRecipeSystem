@@ -197,5 +197,11 @@ public class RecipeImpl implements Recipe {
 		}
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		Member member = this.managedBy;
+		return member.getFirstName() + " " + member.getLastName() + "'s " +  this.name;
+	}
 
 }
