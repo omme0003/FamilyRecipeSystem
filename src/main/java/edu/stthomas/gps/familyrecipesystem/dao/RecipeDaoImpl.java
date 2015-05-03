@@ -12,7 +12,7 @@ public class RecipeDaoImpl extends AbstractDaoImpl<Recipe> implements RecipeDao 
 	public List<Recipe> searchByKeyword(final String keyword) {
 		final Session session = this.getSessionFactory().getCurrentSession();
 		final String search = "%" + keyword.toLowerCase().trim() + "%";
-		return session.createQuery("FROM recipe WHERE name LIKE :name OR description LIKE :desc ORDER BY name").setParameter("name", search)
+		return session.createQuery("FROM recipe WHERE lower(name) LIKE :name OR lower(description) LIKE :desc ORDER BY name").setParameter("name", search)
 				.setParameter("desc", search).list();
 	}
 }
