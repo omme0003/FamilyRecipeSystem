@@ -1,81 +1,53 @@
 package edu.stthomas.gps.familyrecipesystem.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JToolBar;
-
 import java.awt.BorderLayout;
-
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-
-import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
-
-import java.awt.Font;
-
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JList;
+import javax.swing.JTextPane;
+import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTextField textField_1;
-	private final ClassPathXmlApplicationContext CTX = new ClassPathXmlApplicationContext("beans.xml");
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private final ClassPathXmlApplicationContext CTX;
 
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
-		initialize();
+	public MainWindow(final ClassPathXmlApplicationContext ctx) {
+		this.CTX = ctx;
+		this.initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 360, 640);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JToolBar toolBar = new JToolBar();
+		this.frame = new JFrame();
+		this.frame.setResizable(false);
+		this.frame.setBounds(100, 100, 360, 640);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		final JToolBar toolBar = new JToolBar();
 		toolBar.setBackground(Color.BLACK);
 		toolBar.setFloatable(false);
-		frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
-		
-		JButton btnSearch = new JButton("Search");
+		this.frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
+
+		final JButton btnSearch = new JButton("Search");
 		btnSearch.setMargin(new Insets(0, 0, 0, 0));
 		btnSearch.setForeground(Color.WHITE);
 		btnSearch.setBorderPainted(false);
@@ -86,8 +58,8 @@ public class MainWindow {
 		btnSearch.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnSearch.setIcon(new ImageIcon(MainWindow.class.getResource("/edu/stthomas/gps/familyrecipesystem/gui/resources/UIBarButtonSearch_2x.png")));
 		toolBar.add(btnSearch);
-		
-		JButton btnUsers = new JButton("People");
+
+		final JButton btnUsers = new JButton("People");
 		btnUsers.setIcon(new ImageIcon(MainWindow.class.getResource("/edu/stthomas/gps/familyrecipesystem/gui/resources/UITabBarContacts_2x.png")));
 		btnUsers.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnUsers.setPreferredSize(new Dimension(120, 60));
@@ -97,8 +69,8 @@ public class MainWindow {
 		btnUsers.setForeground(Color.WHITE);
 		btnUsers.setBorderPainted(false);
 		toolBar.add(btnUsers);
-		
-		JButton btnRecipes = new JButton("My Recipes");
+
+		final JButton btnRecipes = new JButton("My Recipes");
 		btnRecipes.setIcon(new ImageIcon(MainWindow.class.getResource("/edu/stthomas/gps/familyrecipesystem/gui/resources/UIBarButtonBookmarks_2x.png")));
 		btnRecipes.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRecipes.setPreferredSize(new Dimension(120, 60));
@@ -108,39 +80,43 @@ public class MainWindow {
 		btnRecipes.setForeground(Color.WHITE);
 		btnRecipes.setBorderPainted(false);
 		toolBar.add(btnRecipes);
-		
-		JLayeredPane layeredPane = new JLayeredPane();
-		//frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
-		
-		JPanel panel = new LoginPanel(CTX, frame);
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		
-		JScrollPane scrollPaneRecipe = new JScrollPane();
+
+		final JLayeredPane layeredPane = new JLayeredPane();
+		// frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
+
+		final JPanel panel = new LoginPanel(this.CTX, this.frame);
+		this.frame.getContentPane().add(panel, BorderLayout.CENTER);
+
+		final JScrollPane scrollPaneRecipe = new JScrollPane();
 		layeredPane.setLayer(scrollPaneRecipe, 0);
 		scrollPaneRecipe.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneRecipe.setBounds(0, 0, 360, 554);
 		layeredPane.add(scrollPaneRecipe);
-		
-		JPanel panelSearch = new JPanel();
+
+		final JPanel panelSearch = new JPanel();
 		panelSearch.setBackground(new Color(245, 222, 179));
 		layeredPane.setLayer(panelSearch, 1);
 		panelSearch.setBounds(0, 0, 360, 554);
 		layeredPane.add(panelSearch);
 		panelSearch.setLayout(null);
-		
-		JTextPane txtpnSearchRecipesAnd = new JTextPane();
+
+		final JTextPane txtpnSearchRecipesAnd = new JTextPane();
 		txtpnSearchRecipesAnd.setBackground(new Color(245, 222, 179));
 		txtpnSearchRecipesAnd.setText("Search Recipes and People:");
 		txtpnSearchRecipesAnd.setBounds(18, 19, 179, 22);
 		panelSearch.add(txtpnSearchRecipesAnd);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(18, 43, 314, 28);
-		panelSearch.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnSearch_1 = new JButton("Search");
+
+		this.textField_1 = new JTextField();
+		this.textField_1.setBounds(18, 43, 314, 28);
+		panelSearch.add(this.textField_1);
+		this.textField_1.setColumns(10);
+
+		final JButton btnSearch_1 = new JButton("Search");
 		btnSearch_1.setBounds(18, 83, 314, 43);
 		panelSearch.add(btnSearch_1);
+	}
+
+	public void setVisible(final boolean visible) {
+		this.frame.setVisible(visible);
 	}
 }

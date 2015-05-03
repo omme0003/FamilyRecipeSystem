@@ -1,32 +1,41 @@
 package edu.stthomas.gps.familyrecipesystem;
 
+import java.awt.EventQueue;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import edu.stthomas.gps.familyrecipesystem.service.MemberService;
-import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
+import edu.stthomas.gps.familyrecipesystem.gui.MainWindow;
 
 public class FamilyRecipeSystemApplication {
 	private final static ClassPathXmlApplicationContext CTX = new ClassPathXmlApplicationContext("beans.xml");
 
 	public static void main(final String[] args) {
-		new FamilyRecipeSystemApplication();
-
 		final TestDataGenerator generator = new TestDataGenerator(FamilyRecipeSystemApplication.CTX);
 		generator.generate();
 
-		final MemberService memberService = FamilyRecipeSystemApplication.CTX.getBean("memberService", MemberServiceImpl.class);
-		final boolean login = memberService.login("homer", "duff");
-		if (login) {
-			System.out.println("Login successfull");
-		} else {
-			System.out.println("Login failed");
-		}
+		new FamilyRecipeSystemApplication();
 
-		// final JFrame frame = new JFrame("Test");
-		// frame.show();
+		// final MemberService memberService =
+		// FamilyRecipeSystemApplication.CTX.getBean("memberService",
+		// MemberServiceImpl.class);
+		// final boolean login = memberService.login("homer", "duff2");
+		// if (login) {
+		// System.out.println("Login successful");
+		// } else {
+		// System.out.println("Login failed");
+		// }
+
 	}
 
 	public FamilyRecipeSystemApplication() {
+		EventQueue.invokeLater(() -> {
+			try {
+				final MainWindow window = new MainWindow(FamilyRecipeSystemApplication.CTX);
+				window.setVisible(true);
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public static ClassPathXmlApplicationContext getContext() {
