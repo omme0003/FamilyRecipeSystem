@@ -151,18 +151,23 @@ public class CreateAccountPanel extends JPanel {
 		JButton btnCreateAccount = new JButton("Create Account");
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String username = textFieldUsername.getText();
 				String password = String.valueOf(passwordField.getPassword());
 				String passwordCheck = String.valueOf(passwordFieldConfirm.getPassword());
 				if (password.equals(passwordCheck)) {
 					txtpnErrorMessage.setVisible(false);
 					Member member = new MemberImpl();
-					member.setUserName(textFieldUsername.getText());
+					member.setUserName(username);
 					member.setFirstName(textFieldFirstName.getText());
 					member.setLastName(textFieldLastName.getText());
 					member.setPassword(String.valueOf(passwordField.getPassword()));
 					member.addFamily((Family)comboBox.getSelectedItem());
 					try {
-						CTX.getBean("memberService", MemberServiceImpl.class).create(member);
+						MemberService memberService = CTX.getBean("memberService", MemberServiceImpl.class);
+						memberService.create(member);
+						memberService.login(username, password);
+						JPanel panel = new SearchPanel(CTX, parent);
+						parent.setPanel(CreateAccountPanel.this, panel);
 					} catch (final DuplicateUserException e1) {
 						txtpnErrorMessage.setText("That username is already taken");
 						txtpnErrorMessage.setVisible(true);

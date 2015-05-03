@@ -82,7 +82,7 @@ public class TestDataGenerator {
 		bartSimpson.setPassword("abc123");
 		families.clear();
 		families.add(simpson);
-		margeSimpson.setFamilies(families);
+		bartSimpson.setFamilies(families);
 		memberDao.insert(bartSimpson);
 
 	}
