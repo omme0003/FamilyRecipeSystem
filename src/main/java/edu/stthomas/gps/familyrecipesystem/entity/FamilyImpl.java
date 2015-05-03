@@ -93,4 +93,9 @@ public class FamilyImpl implements Family {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return this.name;
+	}
+
 }

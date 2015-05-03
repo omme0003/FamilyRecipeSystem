@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class MemberImpl implements Member {
 	@OneToMany(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
 	private final List<Recipe> recipes;
 
-	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "member_family", joinColumns = @JoinColumn(name = "family_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
 	private final List<Family> families;
 

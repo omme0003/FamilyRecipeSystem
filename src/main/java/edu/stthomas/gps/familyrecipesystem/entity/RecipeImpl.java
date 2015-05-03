@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,13 +38,13 @@ public class RecipeImpl implements Recipe {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastChanged;
 
-	@OneToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member managedBy;
 
 	@ManyToOne(targetEntity = CommentImpl.class)
 	private final List<Comment> comments;
 
-	@ManyToMany(targetEntity = CommentImpl.class)
+	@ManyToMany(targetEntity = IngredientImpl.class)
 	private final List<Ingredient> ingredients;
 
 	@ManyToOne(targetEntity = RatingImpl.class)

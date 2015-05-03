@@ -10,7 +10,8 @@
 
 	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"><value>org.hsqldb.jdbcDriver</value></property>
-		<property name="url"><value>jdbc:hsqldb:hsql://localhost</value></property>
+		<!-- property name="url"><value>jdbc:hsqldb:mem:.</value></property-->
+		<property name="url"><value>jdbc:hsqldb:hsql://localhost/</value></property>
 		<property name="username"><value>SA</value></property>
 		<property name="password"><value></value></property>
 	</bean>
@@ -61,6 +62,9 @@
 	</bean>
 	<bean id="recipeService" class="edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl">
 		<property name="dao" ref="recipeDao" />
+	</bean>
+	<bean id="familyService" class="edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl">
+		<property name="dao" ref="familyDao" />
 	</bean>
 
 	<!-- Transactions -->
