@@ -10,12 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JToolBar;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -85,18 +83,20 @@ public class MainWindow {
 		// frame.getContentPane().add(layeredPane, BorderLayout.CENTER);
 
 		final JPanel panel = new LoginPanel(this.CTX, this);
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		
+		this.frame.getContentPane().add(panel, BorderLayout.CENTER);
+
 	}
 
 	public void setVisible(final boolean visible) {
 		this.frame.setVisible(visible);
 	}
-	
-	public void setPanel(JPanel panel) {
-		frame.removeAll();
-		frame.getContentPane().add(panel);
-		frame.revalidate();
-		frame.repaint();
+
+	public void setPanel(final JPanel panel) {
+		SwingUtilities.invokeLater(() -> {
+			MainWindow.this.frame.setContentPane(panel);
+			MainWindow.this.frame.revalidate();
+			MainWindow.this.frame.repaint();
+		});
+
 	}
 }
