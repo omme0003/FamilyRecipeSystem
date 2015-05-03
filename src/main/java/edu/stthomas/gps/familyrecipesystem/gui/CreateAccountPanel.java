@@ -19,9 +19,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
+import edu.stthomas.gps.familyrecipesystem.service.DuplicateUserException;
 import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
+import edu.stthomas.gps.familyrecipesystem.service.RequiredAttributesEmptyException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -152,13 +154,22 @@ public class CreateAccountPanel extends JPanel {
 				String password = String.valueOf(passwordField.getPassword());
 				String passwordCheck = String.valueOf(passwordFieldConfirm.getPassword());
 				if (password.equals(passwordCheck)) {
+					txtpnErrorMessage.setVisible(false);
 					Member member = new MemberImpl();
 					member.setUserName(textFieldUsername.getText());
 					member.setFirstName(textFieldFirstName.getText());
 					member.setLastName(textFieldLastName.getText());
 					member.setPassword(String.valueOf(passwordField.getPassword()));
 					member.addFamily((Family)comboBox.getSelectedItem());
-					CTX.getBean("memberService", MemberServiceImpl.class).create(member);
+					try {
+						CTX.getBean("memberService", MemberServiceImpl.class).create(member);
+					} catch (final DuplicateUserException e1) {
+						txtpnErrorMessage.setText("That username is already taken");
+						txtpnErrorMessage.setVisible(true);
+					} catch (final RequiredAttributesEmptyException e2) {
+						txtpnErrorMessage.setText("One or more required values is missing");
+						txtpnErrorMessage.setVisible(true);
+					}
 				} else {
 					txtpnErrorMessage.setText("Passwords don't match");
 					txtpnErrorMessage.setVisible(true);
