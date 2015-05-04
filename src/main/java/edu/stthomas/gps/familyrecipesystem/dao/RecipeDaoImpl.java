@@ -17,10 +17,10 @@ public class RecipeDaoImpl extends AbstractDaoImpl<Recipe> implements RecipeDao 
 
 		return session
 				.createQuery(
-						"SELECT r FROM recipe AS r JOIN r.managedBy AS m WHERE (lower(r.name) LIKE :name OR lower(r.description) LIKE :desc) "
+						"SELECT r FROM recipe AS r JOIN r.managedBy AS m WHERE (lower(r.name) LIKE :keyword OR lower(r.description) LIKE :keyword) "
 								+ "AND m.id IN (:relatedMembers) ORDER BY name")
-								.setParameter("name", search).setParameter("desc", search)
-								.setParameterList("relatedMembers", relatedMembers).list();
+				.setParameter("keyword", search).setParameterList("relatedMembers", relatedMembers)
+				.list();
 
 	}
 }
