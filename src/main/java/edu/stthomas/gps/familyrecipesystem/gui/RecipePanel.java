@@ -79,9 +79,9 @@ public class RecipePanel extends JPanel {
 		panel.add(ingredientsTable);
 		
 		List<IngredientOptions> ingredientOptions = recipe.getIngredientOptions();
-		Object[] data = new Object[3];
+		
 		for(IngredientOptions ig: ingredientOptions) {
-			
+			final Object[] data = new Object[3];
 			data[0] = ig.getQuantityFormatted();
 			data[1] = ig.getUnit();
 			data[2] = ig.getIngredient().getName();
