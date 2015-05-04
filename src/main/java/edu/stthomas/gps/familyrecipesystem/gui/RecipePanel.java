@@ -7,13 +7,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.entity.Comment;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
+import edu.stthomas.gps.familyrecipesystem.entity.Ingredient;
+import edu.stthomas.gps.familyrecipesystem.entity.IngredientImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
+import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptionsImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 import edu.stthomas.gps.familyrecipesystem.entity.Unit;
 import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
+import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
+import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -48,6 +53,7 @@ public class RecipePanel extends JPanel {
 	private JTextPane recipeDescription;
 	private JTextPane commentsHeader;
 	private JPanel commentsPanel;
+	private JButton saveChangesButton;
 
 	/**
 	 * Create the panel.
@@ -106,6 +112,7 @@ public class RecipePanel extends JPanel {
 		}
 		
 		instructionsHeader = new JTextPane();
+		instructionsHeader.setMaximumSize(new Dimension(360, 60));
 		instructionsHeader.setText("Instructions:");
 		instructionsHeader.setEditable(false);
 		panel.add(instructionsHeader);
@@ -113,6 +120,7 @@ public class RecipePanel extends JPanel {
 		recipeDescription = new JTextPane();
 		recipeDescription.setText(recipe.getDescription());
 		recipeDescription.setEditable(canEdit);
+		panel.add(recipeDescription);
 		
 		panel.add(Box.createVerticalGlue());
 		
@@ -127,6 +135,42 @@ public class RecipePanel extends JPanel {
 //			commentText.setText(comment.getText());
 //			panel.add(commentText, constraints);
 //		}
+		
+		if (canEdit) {
+			saveChangesButton = new JButton();
+			saveChangesButton.setText("Save Changes");
+			saveChangesButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Recipe newRecipe = recipe;
+					List<IngredientOptions> ingredientOptions = new ArrayList<IngredientOptions>();
+					newRecipe.setName(recipeName.getText());
+					newRecipe.setDescription(recipeDescription.getText());
+					for(int i = 0; i < model.getRowCount(); i++) {
+						Ingredient ingredient = new IngredientImpl();
+						IngredientOptions ingOpt = new IngredientOptionsImpl();
+						ingredient.setName(model.getValueAt(i, 2).toString());
+						ingOpt.setRecipe(newRecipe);
+						ingOpt.setIngredient(ingredient);
+						ingOpt.setQuantity(numberOrZero(model.getValueAt(i, 0).toString()));
+						ingOpt.setUnit((Unit)model.getValueAt(i,  1));
+						ingredientOptions.add(ingOpt);
+					}
+					RecipeService recipeService = CTX.getBean("recipeService", RecipeServiceImpl.class);
+					recipeService.create(newRecipe);
+				}
+			});
+			panel.add(saveChangesButton);
+		}
 
+	}
+	
+	private static float numberOrZero(String s) {
+		float f;
+		try {
+			f = Float.parseFloat(s);
+		} catch(NumberFormatException e) {
+			f = 0;
+		}
+		return f;
 	}
 }
