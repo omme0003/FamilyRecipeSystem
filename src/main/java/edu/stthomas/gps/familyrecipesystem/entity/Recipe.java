@@ -44,4 +44,6 @@ public interface Recipe extends Entity {
 
 	public void addIngredientOptions(final IngredientOptions ingredients);
 
+	public void addIngredient(final float quanity, final Unit unit, final String ingredientName);
+
 }

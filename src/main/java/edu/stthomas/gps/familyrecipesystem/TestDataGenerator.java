@@ -18,6 +18,8 @@ import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 import edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Unit;
+import edu.stthomas.gps.familyrecipesystem.service.MemberService;
+import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
 
 public class TestDataGenerator {
@@ -83,6 +85,10 @@ public class TestDataGenerator {
 		memberDao.insert(bartSimpson);
 
 		// Recipes
+		final MemberService memberService = FamilyRecipeSystemApplication.getContext().getBean("memberService",
+				MemberServiceImpl.class);
+		final boolean login = memberService.login("homer", "duff");
+
 		final RecipeService recipeService = this.ctx.getBean("recipeService", RecipeService.class);
 
 		final Recipe noodleBolognese = new RecipeImpl();
@@ -99,8 +105,7 @@ public class TestDataGenerator {
 
 		final Ingredient tomato = new IngredientImpl();
 		tomato.setName("tomato");
-		final IngredientOptions tomatoOption = new IngredientOptionsImpl(2.5f, Unit.PC, tomato,
-				noodleBolognese);
+		final IngredientOptions tomatoOption = new IngredientOptionsImpl(2.5f, Unit.PC, tomato, noodleBolognese);
 		ingredientOptions.add(tomatoOption);
 
 		noodleBolognese.setIngredientOptions(ingredientOptions);
@@ -114,17 +119,23 @@ public class TestDataGenerator {
 
 		final Ingredient onion2 = new IngredientImpl();
 		onion2.setName("onion");
-		final IngredientOptions option2 = new IngredientOptionsImpl();
-		option2.setIngredient(onion2);
-		option2.setQuantity(3.5f);
-		option2.setRecipe(bakedPotato);
-		option2.setUnit(Unit.PC);
-		ingredientOptions2.add(option2);
-		bakedPotato.setIngredientOptions(ingredientOptions2);
+		final IngredientOptions option2 = new IngredientOptionsImpl(3.5f, Unit.PC, onion2, bakedPotato);
+		bakedPotato.addIngredientOptions(option2);
 
 		bakedPotato.setName("Baked potato");
 		bakedPotato.setDescription("Description");
 		bakedPotato.setManagedBy(homerSimpson);
 		recipeService.insertOrUpdate(bakedPotato);
+
+		final Recipe homerSimpsonDogBurger = new RecipeImpl();
+		homerSimpsonDogBurger.setName("Dog Burger");
+		homerSimpsonDogBurger.setDescription("Marinate hot dogs in Duff Beer for 24 hours. "
+				+ "Drain, then wrap hot dogs in burger meat to create a single large dog burger. "
+				+ "Grill eight minutes each side, slap into roll, eat with Duff.");
+		homerSimpsonDogBurger.addIngredient(4f, Unit.PC, "Hot dog");
+		homerSimpsonDogBurger.addIngredient(1f, Unit.PC, "Duff beer");
+		homerSimpsonDogBurger.addIngredient(1f, Unit.LBS, "hamburger meat");
+		homerSimpsonDogBurger.addIngredient(1f, Unit.PC, "large roll");
+		recipeService.insertOrUpdate(homerSimpsonDogBurger);
 	}
 }

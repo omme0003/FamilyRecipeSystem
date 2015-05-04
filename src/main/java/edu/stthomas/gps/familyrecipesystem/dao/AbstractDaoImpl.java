@@ -14,7 +14,7 @@ import edu.stthomas.gps.familyrecipesystem.entity.Family;
 @Transactional
 @Repository
 public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.entity.Entity>
-		implements AbstractDao<Entity> {
+implements AbstractDao<Entity> {
 	private SessionFactory sessionFactory;
 
 	@Override
@@ -30,7 +30,7 @@ public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.
 	@Override
 	public void update(final Entity entity) {
 		final Session session = this.sessionFactory.getCurrentSession();
-		session.update(entity);
+		session.merge(entity);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.
 
 		return session
 				.createQuery(
-				"SELECT DISTINCT m1.id FROM member AS m1 JOIN m1.families AS f1 WHERE f1.id IN (:families)")
-				.setParameterList("families", familyIds).list();
+						"SELECT DISTINCT m1.id FROM member AS m1 JOIN m1.families AS f1 WHERE f1.id IN (:families)")
+						.setParameterList("families", familyIds).list();
 	}
 }

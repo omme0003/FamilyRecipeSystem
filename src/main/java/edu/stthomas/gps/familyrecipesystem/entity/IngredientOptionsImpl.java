@@ -45,6 +45,13 @@ public class IngredientOptionsImpl implements IngredientOptions {
 		this.setUnit(unit);
 	}
 
+	public IngredientOptionsImpl(final float quanity, final Unit unit, final String ingredientName, final Recipe recipe) {
+		this.setIngredient(new IngredientImpl(ingredientName));
+		this.setQuantity(quanity);
+		this.setRecipe(recipe);
+		this.setUnit(unit);
+	}
+
 	@Override
 	public int getId() {
 		return this.id;
@@ -136,6 +143,11 @@ public class IngredientOptionsImpl implements IngredientOptions {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%.01f %s %s(s)", this.quantity, this.unit.getNameShort(), this.ingredient.getName());
 	}
 
 }

@@ -61,6 +61,11 @@ public class RecipeImpl implements Recipe {
 		this.ingredientOptions = new LinkedList<>();
 	}
 
+	public RecipeImpl(final String name) {
+		this();
+		this.setName(name);
+	}
+
 	@Override
 	public int getId() {
 		return this.id;
@@ -156,6 +161,11 @@ public class RecipeImpl implements Recipe {
 	@Override
 	public void addIngredientOptions(final IngredientOptions ingredients) {
 		this.ingredientOptions.add(ingredients);
+	}
+
+	@Override
+	public void addIngredient(final float quanity, final Unit unit, final String ingredientName) {
+		this.addIngredientOptions(new IngredientOptionsImpl(quanity, unit, ingredientName, this));
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.FamilyRecipeSystemApplication;
 import edu.stthomas.gps.familyrecipesystem.dao.IngredientDao;
 import edu.stthomas.gps.familyrecipesystem.dao.RecipeDao;
@@ -35,6 +36,7 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 
 		final Date current = new Date();
 		recipe.setLastChanged(current);
+		recipe.setManagedBy(AppSession.getInstance().getUser());
 		if (recipe.getId() == 0) {
 			recipe.setCreated(current);
 			this.getDao().insert(recipe);
