@@ -17,6 +17,12 @@ import javax.swing.SwingUtilities;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.stthomas.gps.familyrecipesystem.service.MemberService;
+import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class MainWindow {
 
 	private JFrame frame;
@@ -60,6 +66,16 @@ public class MainWindow {
 		});
 	}
 	
+	public void setPanel(final JPanel newPanel) {
+		SwingUtilities.invokeLater(() -> {
+			BorderLayout layout = (BorderLayout) MainWindow.this.frame.getContentPane().getLayout();
+			this.frame.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+			MainWindow.this.frame.getContentPane().add(newPanel, BorderLayout.CENTER);
+			MainWindow.this.frame.revalidate();
+			MainWindow.this.frame.repaint();
+		});
+	}
+	
 	private void addToolbar() {
 		final JToolBar toolBar = new JToolBar();
 		toolBar.setBackground(Color.BLACK);
@@ -77,6 +93,12 @@ public class MainWindow {
 		btnSearch.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnSearch.setIcon(new ImageIcon(MainWindow.class.getResource("/edu/stthomas/gps/familyrecipesystem/gui/resources/UIBarButtonSearch_2x.png")));
 		toolBar.add(btnSearch);
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel panel = new SearchPanel(CTX, MainWindow.this);
+				setPanel(panel);
+			}
+		});
 
 		final JButton btnUsers = new JButton("People");
 		btnUsers.setIcon(new ImageIcon(MainWindow.class.getResource("/edu/stthomas/gps/familyrecipesystem/gui/resources/UITabBarContacts_2x.png")));
