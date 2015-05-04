@@ -18,7 +18,7 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	@Column
 	private float quantity;
@@ -53,12 +53,12 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	}
 
 	@Override
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
 	@Override
-	public void setId(final int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -108,11 +108,15 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	}
 
 	@Override
+	public String toString() {
+		return String.format("%.01f %s %s(s)", this.quantity, this.unit.getNameShort(), this.ingredient.getName());
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (prime * result) + ((this.ingredient == null) ? 0 : this.ingredient.hashCode());
-		result = (prime * result) + ((this.recipe == null) ? 0 : this.recipe.hashCode());
+		result = (prime * result) + this.id;
 		return result;
 	}
 
@@ -128,26 +132,10 @@ public class IngredientOptionsImpl implements IngredientOptions {
 			return false;
 		}
 		final IngredientOptionsImpl other = (IngredientOptionsImpl) obj;
-		if (this.ingredient == null) {
-			if (other.ingredient != null) {
-				return false;
-			}
-		} else if (!this.ingredient.equals(other.ingredient)) {
-			return false;
-		}
-		if (this.recipe == null) {
-			if (other.recipe != null) {
-				return false;
-			}
-		} else if (!this.recipe.equals(other.recipe)) {
+		if (this.id != other.id) {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("%.01f %s %s(s)", this.quantity, this.unit.getNameShort(), this.ingredient.getName());
 	}
 
 }

@@ -18,7 +18,7 @@ public class CommentImpl implements Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
 	private Member member;
@@ -34,12 +34,12 @@ public class CommentImpl implements Comment {
 	private Date created;
 
 	@Override
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
 	@Override
-	public void setId(final int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 

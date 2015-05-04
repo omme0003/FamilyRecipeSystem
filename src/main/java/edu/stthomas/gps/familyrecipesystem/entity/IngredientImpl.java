@@ -19,9 +19,9 @@ public class IngredientImpl implements Ingredient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String name;
 
 	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient", cascade = CascadeType.ALL)
@@ -36,12 +36,12 @@ public class IngredientImpl implements Ingredient {
 	}
 
 	@Override
-	public final int getId() {
+	public final Integer getId() {
 		return this.id;
 	}
 
 	@Override
-	public final void setId(final int id) {
+	public final void setId(final Integer id) {
 		this.id = id;
 	}
 

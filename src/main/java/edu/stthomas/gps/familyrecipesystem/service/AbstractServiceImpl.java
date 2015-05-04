@@ -2,7 +2,7 @@ package edu.stthomas.gps.familyrecipesystem.service;
 
 import edu.stthomas.gps.familyrecipesystem.dao.AbstractDao;
 
-public class AbstractServiceImpl<DaoType extends AbstractDao<?>> implements AbstractService<DaoType> {
+public abstract class AbstractServiceImpl<DaoType extends AbstractDao<?>> implements AbstractService<DaoType> {
 
 	private DaoType dao;
 

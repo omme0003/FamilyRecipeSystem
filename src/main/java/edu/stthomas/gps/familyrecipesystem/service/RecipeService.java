@@ -13,4 +13,6 @@ public interface RecipeService extends AbstractService<RecipeDao> {
 
 	public List<Recipe> searchByKeyword(final String keyword);
 
+	public Recipe getById(final Integer id);
+
 }

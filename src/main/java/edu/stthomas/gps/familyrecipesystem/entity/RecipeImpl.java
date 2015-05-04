@@ -28,7 +28,7 @@ public class RecipeImpl implements Recipe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	@Column
 	private String name;
@@ -44,7 +44,7 @@ public class RecipeImpl implements Recipe {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastChanged;
 
-	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = MemberImpl.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Member managedBy;
 
@@ -67,12 +67,12 @@ public class RecipeImpl implements Recipe {
 	}
 
 	@Override
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
 	@Override
-	public void setId(final int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -169,6 +169,12 @@ public class RecipeImpl implements Recipe {
 	}
 
 	@Override
+	public String toString() {
+		final Member member = this.managedBy;
+		return member.getFirstName() + " " + member.getLastName() + "'s " + this.name;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -192,12 +198,6 @@ public class RecipeImpl implements Recipe {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		final Member member = this.managedBy;
-		return member.getFirstName() + " " + member.getLastName() + "'s " + this.name;
 	}
 
 }

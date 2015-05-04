@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface Member extends Entity {
 
-	public int getId();
+	public Integer getId();
 
-	public void setId(final int id);
+	public void setId(final Integer id);
 
 	public String getUserName();
 

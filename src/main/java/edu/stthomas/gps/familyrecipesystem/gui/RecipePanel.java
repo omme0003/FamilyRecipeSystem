@@ -156,7 +156,7 @@ public class RecipePanel extends JPanel {
 						ingredientOptions.add(ingOpt);
 					}
 					RecipeService recipeService = CTX.getBean("recipeService", RecipeServiceImpl.class);
-					recipeService.create(newRecipe);
+					recipeService.insertOrUpdate(newRecipe);
 				}
 			});
 			panel.add(saveChangesButton);

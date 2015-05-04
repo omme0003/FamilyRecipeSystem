@@ -18,7 +18,7 @@ public class FamilyImpl implements Family {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	@Column(name = "family_name", unique = true, nullable = false)
 	private String name;
@@ -27,12 +27,12 @@ public class FamilyImpl implements Family {
 	private List<Member> members;
 
 	@Override
-	public final int getId() {
+	public final Integer getId() {
 		return this.id;
 	}
 
 	@Override
-	public final void setId(final int id) {
+	public final void setId(final Integer id) {
 		this.id = id;
 	}
 

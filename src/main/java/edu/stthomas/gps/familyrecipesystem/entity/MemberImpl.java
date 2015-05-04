@@ -24,7 +24,7 @@ public class MemberImpl implements Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	@Column(unique = true, nullable = false)
 	private String userName;
@@ -58,12 +58,12 @@ public class MemberImpl implements Member {
 	}
 
 	@Override
-	public final int getId() {
+	public final Integer getId() {
 		return this.id;
 	}
 
 	@Override
-	public final void setId(final int id) {
+	public final void setId(final Integer id) {
 		this.id = id;
 	}
 

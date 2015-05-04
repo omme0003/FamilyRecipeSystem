@@ -4,9 +4,9 @@ import java.util.Date;
 
 public interface Comment extends Entity {
 
-	public int getId();
+	public Integer getId();
 
-	public void setId(final int id);
+	public void setId(final Integer id);
 
 	public Member getMember();
 

@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface Recipe extends Entity {
 
-	public int getId();
+	public Integer getId();
 
-	public void setId(final int id);
+	public void setId(final Integer id);
 
 	public String getName();
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import edu.stthomas.gps.familyrecipesystem.entity.Comment;
+import edu.stthomas.gps.familyrecipesystem.entity.CommentImpl;
 
 public class CommentDaoImpl extends AbstractDaoImpl<Comment> implements CommentDao {
 
@@ -33,6 +34,11 @@ public class CommentDaoImpl extends AbstractDaoImpl<Comment> implements CommentD
 	public Comment getCommentById(final int id) {
 		final Session session = this.getSessionFactory().getCurrentSession();
 		return (Comment) session.get(Comment.class, id);
+	}
+
+	@Override
+	public Comment getById(final Integer id) {
+		return (Comment) this.getSessionFactory().getCurrentSession().get(CommentImpl.class, id);
 	}
 
 }

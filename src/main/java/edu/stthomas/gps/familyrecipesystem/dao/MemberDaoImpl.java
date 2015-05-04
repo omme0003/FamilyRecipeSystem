@@ -3,14 +3,16 @@ package edu.stthomas.gps.familyrecipesystem.dao;
 import org.hibernate.Session;
 
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
+import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
 
 public class MemberDaoImpl extends AbstractDaoImpl<Member> implements MemberDao {
 
 	@Override
 	public Member getMemberByUsernameAndPassword(final String userName, final String password) {
 		final Session session = this.getSessionFactory().getCurrentSession();
-		return (Member) session.createQuery("FROM member WHERE username = ? AND password = ?")
+		final Member member = (Member) session.createQuery("FROM member WHERE username = ? AND password = ?")
 				.setParameter(0, userName).setParameter(1, password).uniqueResult();
+		return this.getById(member.getId());
 	}
 
 	@Override
@@ -21,9 +23,7 @@ public class MemberDaoImpl extends AbstractDaoImpl<Member> implements MemberDao 
 	}
 
 	@Override
-	public Member getMemberById(final int id) {
-		final Session session = this.getSessionFactory().getCurrentSession();
-		return (Member) session.createQuery("FROM member WHERE id = ?").setParameter(0, id)
-				.uniqueResult();
+	public Member getById(final Integer id) {
+		return (Member) this.getSessionFactory().getCurrentSession().get(MemberImpl.class, id);
 	}
 }
