@@ -42,4 +42,6 @@ public interface Recipe extends Entity {
 
 	public List<IngredientOptions> getIngredientOptions();
 
+	public void addIngredientOptions(final IngredientOptions ingredients);
+
 }

@@ -32,8 +32,7 @@ public class CommentDaoImpl extends AbstractDaoImpl<Comment> implements CommentD
 	@Override
 	public Comment getCommentById(final int id) {
 		final Session session = this.getSessionFactory().getCurrentSession();
-		return (Comment) session.createQuery("FROM comment WHERE id = ?").setParameter(0, id)
-				.uniqueResult();
+		return (Comment) session.get(Comment.class, id);
 	}
 
 }

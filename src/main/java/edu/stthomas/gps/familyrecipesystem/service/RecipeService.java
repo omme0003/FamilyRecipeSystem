@@ -9,7 +9,7 @@ public interface RecipeService extends AbstractService<RecipeDao> {
 
 	public void update(final Recipe recipe);
 
-	public void create(final Recipe recipe);
+	public void insertOrUpdate(final Recipe recipe);
 
 	public List<Recipe> searchByKeyword(final String keyword);
 

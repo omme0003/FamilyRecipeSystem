@@ -154,6 +154,11 @@ public class RecipeImpl implements Recipe {
 	}
 
 	@Override
+	public void addIngredientOptions(final IngredientOptions ingredients) {
+		this.ingredientOptions.add(ingredients);
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

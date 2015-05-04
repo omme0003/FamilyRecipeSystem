@@ -107,7 +107,7 @@ public class TestDataGenerator {
 		noodleBolognese.setName("Noodle bolognese");
 		noodleBolognese.setDescription("Description");
 		noodleBolognese.setManagedBy(homerSimpson);
-		recipeService.create(noodleBolognese);
+		recipeService.insertOrUpdate(noodleBolognese);
 
 		final Recipe bakedPotato = new RecipeImpl();
 		final List<IngredientOptions> ingredientOptions2 = new ArrayList<IngredientOptions>();
@@ -125,6 +125,6 @@ public class TestDataGenerator {
 		bakedPotato.setName("Baked potato");
 		bakedPotato.setDescription("Description");
 		bakedPotato.setManagedBy(homerSimpson);
-		recipeService.create(bakedPotato);
+		recipeService.insertOrUpdate(bakedPotato);
 	}
 }
