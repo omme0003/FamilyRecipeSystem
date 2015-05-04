@@ -17,7 +17,8 @@ public class RecipeDaoImpl extends AbstractDaoImpl<Recipe> implements RecipeDao 
 
 		return session
 				.createQuery(
-						"SELECT r FROM recipe AS r JOIN r.managedBy AS m WHERE (lower(r.name) LIKE :keyword OR lower(r.description) LIKE :keyword) "
+						"SELECT DISTINCT r FROM recipe AS r JOIN r.managedBy AS m JOIN r.ingredientOptions AS ingOpt JOIN ingOpt.ingredient as ing "
+								+ "WHERE (lower(r.name) LIKE :keyword OR lower(r.description) LIKE :keyword OR lower(ing.name) LIKE :keyword) "
 								+ "AND m.id IN (:relatedMembers) ORDER BY name")
 				.setParameter("keyword", search).setParameterList("relatedMembers", relatedMembers)
 				.list();
