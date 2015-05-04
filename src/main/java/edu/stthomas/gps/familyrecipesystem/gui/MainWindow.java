@@ -110,6 +110,12 @@ public class MainWindow {
 		btnUsers.setForeground(Color.WHITE);
 		btnUsers.setBorderPainted(false);
 		toolBar.add(btnUsers);
+		btnUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel panel = new PeoplePanel(CTX, MainWindow.this);
+				setPanel(panel);
+			}
+		});
 
 		final JButton btnRecipes = new JButton("My Recipes");
 		btnRecipes.setIcon(new ImageIcon(MainWindow.class.getResource("/edu/stthomas/gps/familyrecipesystem/gui/resources/UIBarButtonBookmarks_2x.png")));
