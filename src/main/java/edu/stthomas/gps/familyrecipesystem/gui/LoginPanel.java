@@ -1,16 +1,11 @@
 package edu.stthomas.gps.familyrecipesystem.gui;
 
 import javax.swing.JPanel;
-import javax.swing.JFrame;
-
 import java.awt.Dimension;
-
 import javax.swing.JTextPane;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -41,34 +36,26 @@ public class LoginPanel extends JPanel {
 		txtpnTitle.setFocusTraversalKeysEnabled(false);
 		txtpnTitle.setEditable(false);
 		txtpnTitle.setBackground(new Color(255, 255, 255));
-		txtpnTitle.setBounds(64, 59, 229, 39);
+		txtpnTitle.setBounds(60, 60, 240, 40);
 		add(txtpnTitle);
 		
-		JTextPane txtpnUsername = new JTextPane();
-		txtpnUsername.setText("Username:");
-		txtpnUsername.setFocusTraversalKeysEnabled(false);
-		txtpnUsername.setEditable(false);
-		txtpnUsername.setBackground(new Color(255, 255, 255));
-		txtpnUsername.setBounds(36, 180, 66, 16);
-		add(txtpnUsername);
+		JLabel labelUsername = new JLabel("Username:");
+		labelUsername.setBounds(40, 180, 66, 16);
+		add(labelUsername);
 		
 		textFieldUsername = new JTextField();
 		textFieldUsername.setSize(new Dimension(280, 21));
-		textFieldUsername.setBounds(35, 198, 288, 28);
+		textFieldUsername.setBounds(38, 198, 284, 21);
 		add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 		
-		JTextPane txtpnPassword = new JTextPane();
-		txtpnPassword.setText("Password:");
-		txtpnPassword.setFocusTraversalKeysEnabled(false);
-		txtpnPassword.setEditable(false);
-		txtpnPassword.setBackground(new Color(255, 255, 255));
-		txtpnPassword.setBounds(36, 238, 66, 16);
-		add(txtpnPassword);
+		JLabel labelPassword = new JLabel("Password:");
+		labelPassword.setBounds(40, 240, 66, 16);
+		add(labelPassword);
 		
 		passwordField = new JPasswordField();
 		passwordField.setSize(new Dimension(280, 21));
-		passwordField.setBounds(34, 260, 288, 21);
+		passwordField.setBounds(38, 258, 284, 21);
 		add(passwordField);
 		 
 		JTextPane txtpnErrorMessage = new JTextPane();
@@ -77,7 +64,7 @@ public class LoginPanel extends JPanel {
 		txtpnErrorMessage.setForeground(new Color(255, 0, 0));
 		txtpnErrorMessage.setBackground(new Color(255, 255, 255));
 		txtpnErrorMessage.setText("Error Message");
-		txtpnErrorMessage.setBounds(36, 293, 282, 39);
+		txtpnErrorMessage.setBounds(40, 288, 284, 32);
 		add(txtpnErrorMessage);
 		
 		JButton btnLogIn = new JButton("Log In");
@@ -97,7 +84,7 @@ public class LoginPanel extends JPanel {
 				}
 			}
 		});
-		btnLogIn.setBounds(34, 349, 133, 45);
+		btnLogIn.setBounds(40, 350, 130, 40);
 		add(btnLogIn);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
@@ -107,7 +94,7 @@ public class LoginPanel extends JPanel {
 				parent.setPanel(LoginPanel.this, panel);
 			}
 		});
-		btnCreateAccount.setBounds(179, 349, 133, 45);
+		btnCreateAccount.setBounds(190, 350, 130, 40);
 		add(btnCreateAccount);
 
 	}
