@@ -2,7 +2,6 @@ package edu.stthomas.gps.familyrecipesystem.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +19,10 @@ public class CommentImpl implements Comment {
 	@Column(unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(targetEntity = MemberImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = MemberImpl.class)
 	private Member member;
 
-	@ManyToOne(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = RecipeImpl.class)
 	private Recipe recipe;
 
 	@Column(name = "comment_text", length = 1024)
@@ -32,6 +31,16 @@ public class CommentImpl implements Comment {
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
+
+	public CommentImpl() {
+	}
+
+	public CommentImpl(final String text, final Member member, final Recipe recipe) {
+		this.setText(text);
+		this.setMember(member);
+		this.setRecipe(recipe);
+		this.setCreated(new Date());
+	}
 
 	@Override
 	public Integer getId() {

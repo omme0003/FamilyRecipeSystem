@@ -7,7 +7,6 @@ import java.util.List;
 import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.FamilyRecipeSystemApplication;
 import edu.stthomas.gps.familyrecipesystem.dao.IngredientDao;
-import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
 import edu.stthomas.gps.familyrecipesystem.dao.RecipeDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Ingredient;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
@@ -24,7 +23,6 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 	public void insertOrUpdate(final Recipe recipe) {
 		final IngredientDao ingredientDao = FamilyRecipeSystemApplication.getContext().getBean("ingredientDao",
 				IngredientDao.class);
-		final MemberDao memberDao = FamilyRecipeSystemApplication.getContext().getBean("memberDao", MemberDao.class);
 		final List<IngredientOptions> newIngredientOptions = new ArrayList<IngredientOptions>();
 		for (final IngredientOptions option : recipe.getIngredientOptions())
 		{

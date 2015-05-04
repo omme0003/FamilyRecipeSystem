@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.stthomas.gps.familyrecipesystem.entity.CommentImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 import edu.stthomas.gps.familyrecipesystem.entity.Unit;
 import edu.stthomas.gps.familyrecipesystem.gui.MainWindow;
+import edu.stthomas.gps.familyrecipesystem.service.CommentService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
@@ -45,19 +47,23 @@ public class FamilyRecipeSystemApplication {
 		//
 		// System.out.println(AppSession.getInstance().getUser().getFamilies());
 
-		final RecipeService service =
-				FamilyRecipeSystemApplication.CTX.getBean("recipeService",
-						RecipeServiceImpl.class);
-		final List<Recipe> recipes = service.searchByKeyword("noodle");
+		final RecipeService recipeService = FamilyRecipeSystemApplication.CTX.getBean("recipeService", RecipeServiceImpl.class);
+		final CommentService commentService = FamilyRecipeSystemApplication.CTX.getBean("commentService", CommentService.class);
+		final List<Recipe> recipes = recipeService.searchByKeyword("noodle");
 		System.out.println(recipes);
 		final Recipe recipe = recipes.get(0);
 
 		recipe.addIngredient(1f, Unit.TSP, "oregano");
 		recipe.addIngredient(1f, Unit.PC, "hamburger meat");
 		recipe.setName(recipe.getName() + "Test");
-		service.insertOrUpdate(recipe);
-		final List<Recipe> recipes2 = service.searchByKeyword("oregano");
+		recipe.addComment("This is another comment", AppSession.getInstance().getUser());
+		recipeService.insertOrUpdate(recipe);
+		final List<Recipe> recipes2 = recipeService.searchByKeyword("oregano");
 		System.out.println(recipes2.get(0).getIngredientOptions());
+
+		commentService.insert(new CommentImpl("This is a comment", AppSession.getInstance().getUser(), recipe));
+
+		new FamilyRecipeSystemApplication();
 	}
 
 	public FamilyRecipeSystemApplication() {

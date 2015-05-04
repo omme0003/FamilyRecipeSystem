@@ -48,7 +48,7 @@ public class RecipeImpl implements Recipe {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Member managedBy;
 
-	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipe", cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Comment> comments;
 
@@ -140,6 +140,11 @@ public class RecipeImpl implements Recipe {
 	@Override
 	public void addComment(final Comment comment) {
 		this.comments.add(comment);
+	}
+
+	@Override
+	public void addComment(final String text, final Member member) {
+		this.addComment(new CommentImpl(text, member, this));
 	}
 
 	@Override

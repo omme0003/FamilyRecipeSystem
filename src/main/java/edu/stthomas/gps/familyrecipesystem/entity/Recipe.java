@@ -32,6 +32,8 @@ public interface Recipe extends Entity {
 
 	public void addComment(final Comment comment);
 
+	public void addComment(String text, final Member member);
+
 	public void removeComment(final Comment comment);
 
 	public String getDescription();
