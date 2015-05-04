@@ -9,10 +9,7 @@ import edu.stthomas.gps.familyrecipesystem.dao.FamilyDao;
 import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.FamilyImpl;
-import edu.stthomas.gps.familyrecipesystem.entity.Ingredient;
-import edu.stthomas.gps.familyrecipesystem.entity.IngredientImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
-import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptionsImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
@@ -92,23 +89,8 @@ public class TestDataGenerator {
 		final RecipeService recipeService = this.ctx.getBean("recipeService", RecipeService.class);
 
 		final Recipe noodleBolognese = new RecipeImpl();
-		final List<IngredientOptions> ingredientOptions = new ArrayList<IngredientOptions>();
-
-		final Ingredient onion = new IngredientImpl();
-		onion.setName("onion");
-		final IngredientOptions option = new IngredientOptionsImpl();
-		option.setIngredient(onion);
-		option.setQuantity(2.5f);
-		option.setRecipe(noodleBolognese);
-		option.setUnit(Unit.PC);
-		ingredientOptions.add(option);
-
-		final Ingredient tomato = new IngredientImpl();
-		tomato.setName("tomato");
-		final IngredientOptions tomatoOption = new IngredientOptionsImpl(2.5f, Unit.PC, tomato, noodleBolognese);
-		ingredientOptions.add(tomatoOption);
-
-		noodleBolognese.setIngredientOptions(ingredientOptions);
+		noodleBolognese.addIngredient(2.5f, Unit.PC, "onion");
+		noodleBolognese.addIngredient(5f, Unit.PC, "tomato");
 		noodleBolognese.setName("Noodle bolognese");
 		noodleBolognese.setDescription("Description");
 		noodleBolognese.setManagedBy(homerSimpson);
@@ -116,11 +98,7 @@ public class TestDataGenerator {
 
 		final Recipe bakedPotato = new RecipeImpl();
 		final List<IngredientOptions> ingredientOptions2 = new ArrayList<IngredientOptions>();
-
-		final Ingredient onion2 = new IngredientImpl();
-		onion2.setName("onion");
-		final IngredientOptions option2 = new IngredientOptionsImpl(3.5f, Unit.PC, onion2, bakedPotato);
-		bakedPotato.addIngredientOptions(option2);
+		bakedPotato.addIngredient(3.5f, Unit.PC, "onion");
 
 		bakedPotato.setName("Baked potato");
 		bakedPotato.setDescription("Description");

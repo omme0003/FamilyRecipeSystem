@@ -1,7 +1,6 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class RecipeImpl implements Recipe {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Comment> comments;
 
-	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)//, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<IngredientOptions> ingredientOptions;
 
@@ -128,7 +127,7 @@ public class RecipeImpl implements Recipe {
 
 	@Override
 	public final List<Comment> getComments() {
-		return Collections.unmodifiableList(this.comments);
+		return this.comments;
 	}
 
 	@Override
@@ -154,7 +153,7 @@ public class RecipeImpl implements Recipe {
 
 	@Override
 	public final List<IngredientOptions> getIngredientOptions() {
-		return Collections.unmodifiableList(this.ingredientOptions);
+		return this.ingredientOptions;
 	}
 
 	@Override

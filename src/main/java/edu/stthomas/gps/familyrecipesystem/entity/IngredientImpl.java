@@ -1,17 +1,17 @@
 package edu.stthomas.gps.familyrecipesystem.entity;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity(name = "ingredient")
 public class IngredientImpl implements Ingredient {
@@ -23,15 +23,17 @@ public class IngredientImpl implements Ingredient {
 
 	@Column(nullable = false)
 	private String name;
-
-	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient", cascade = CascadeType.ALL)
-	private final Set<IngredientOptions> ingredientOptions = new HashSet<>();
+	
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "ingredient")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<IngredientOptions> ingredientOptions;
 
 	public IngredientImpl() {
-
+		this.ingredientOptions = new ArrayList<IngredientOptions>();
 	}
 
 	public IngredientImpl(final String name) {
+		this();
 		this.setName(name);
 	}
 
@@ -55,21 +57,14 @@ public class IngredientImpl implements Ingredient {
 		this.name = name;
 	}
 
-	public void setIngredientOptions(final Collection<IngredientOptions> ingredientOptions) {
-		this.ingredientOptions.clear();
-		this.ingredientOptions.addAll(ingredientOptions);
+	@Override
+	public final List<IngredientOptions> getIngredientOptions() {
+		return ingredientOptions;
 	}
 
-	public Set<IngredientOptions> getIngredientOptions() {
-		return Collections.unmodifiableSet(this.ingredientOptions);
-	}
-
-	public void addIngredientOption(final IngredientOptions option) {
-		this.ingredientOptions.add(option);
-	}
-
-	public void removeIngredientOption(final IngredientOptions option) {
-		this.ingredientOptions.remove(option);
+	@Override
+	public final void setIngredientOptions(List<IngredientOptions> ingredientOptions) {
+		this.ingredientOptions = ingredientOptions;
 	}
 
 	@Override

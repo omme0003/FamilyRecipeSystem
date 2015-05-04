@@ -15,7 +15,7 @@ public class RecipeDaoImpl extends AbstractDaoImpl<Recipe> implements RecipeDao 
 		final String search = "%" + keyword.toLowerCase().trim() + "%";
 
 		final List<Integer> relatedMembers = this.getMemberIdsOfRelatedFamilies();
-
+		
 		return session
 				.createQuery(
 						"SELECT DISTINCT r FROM recipe AS r JOIN r.managedBy AS m JOIN r.ingredientOptions AS ingOpt JOIN ingOpt.ingredient as ing "

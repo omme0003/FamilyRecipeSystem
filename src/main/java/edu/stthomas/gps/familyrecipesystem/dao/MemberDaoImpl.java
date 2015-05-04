@@ -10,9 +10,8 @@ public class MemberDaoImpl extends AbstractDaoImpl<Member> implements MemberDao 
 	@Override
 	public Member getMemberByUsernameAndPassword(final String userName, final String password) {
 		final Session session = this.getSessionFactory().getCurrentSession();
-		final Member member = (Member) session.createQuery("FROM member WHERE username = ? AND password = ?")
+		return (Member) session.createQuery("FROM member WHERE username = ? AND password = ?")
 				.setParameter(0, userName).setParameter(1, password).uniqueResult();
-		return this.getById(member.getId());
 	}
 
 	@Override

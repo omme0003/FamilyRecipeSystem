@@ -53,6 +53,9 @@
 	<bean id="ingredientDao" class="edu.stthomas.gps.familyrecipesystem.dao.IngredientDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
+	<bean id="ingredientOptionsDao" class="edu.stthomas.gps.familyrecipesystem.dao.IngredientOptionsDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
 
 
 	<!-- Services -->

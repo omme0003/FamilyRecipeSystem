@@ -31,16 +31,16 @@ public class IngredientOptionsImpl implements IngredientOptions {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Ingredient ingredient;
 
-	@ManyToOne(targetEntity = RecipeImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = RecipeImpl.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Recipe recipe;
 
 	public IngredientOptionsImpl() {
 	}
 
-	public IngredientOptionsImpl(final float quanity, final Unit unit, final Ingredient ingredient, final Recipe recipe) {
+	public IngredientOptionsImpl(final float quantity, final Unit unit, final Ingredient ingredient, final Recipe recipe) {
 		this.setIngredient(ingredient);
-		this.setQuantity(quanity);
+		this.setQuantity(quantity);
 		this.setRecipe(recipe);
 		this.setUnit(unit);
 	}

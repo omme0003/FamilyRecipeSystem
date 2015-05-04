@@ -8,12 +8,12 @@ import javax.swing.table.AbstractTableModel;
 public class IngredientsTableModel extends AbstractTableModel {
 	
 	private String[] columnNames = {"Quantity", "Unit", "Name"};
-	private List<Object[]> data;
+	private List<String[]> data;
 	private boolean canEdit;
 	
 	public IngredientsTableModel(boolean canEdit) {
 		this.canEdit = canEdit;
-		this.data = new ArrayList<Object[]>();
+		this.data = new ArrayList<String[]>();
 	}
 
 	@Override
@@ -43,18 +43,19 @@ public class IngredientsTableModel extends AbstractTableModel {
 	
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		Object[] newData = data.get(row);
-		newData[col] = value;
+		String[] newData = data.get(row);
+		newData[col] = value.toString();
 		data.set(row, newData);
 		fireTableCellUpdated(row, col);
 	}
 	
 	public void addRow() {
-		data.add(new Object[3]);
+		String[] str = {"", "", "", "-1"};
+		data.add(str);
 		fireTableRowsInserted(this.getRowCount(), this.getRowCount());
 	}
 	
-	public void addRow(Object[] newData) {
+	public void addRow(String[] newData) {
 		data.add(newData);
 		fireTableRowsInserted(this.getRowCount(), this.getRowCount());
 	}
