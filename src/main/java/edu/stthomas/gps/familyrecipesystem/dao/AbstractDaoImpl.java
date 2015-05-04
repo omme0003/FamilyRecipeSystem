@@ -1,13 +1,20 @@
 package edu.stthomas.gps.familyrecipesystem.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.stthomas.gps.familyrecipesystem.AppSession;
+import edu.stthomas.gps.familyrecipesystem.entity.Family;
+
 @Transactional
 @Repository
-public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.entity.Entity> implements AbstractDao<Entity> {
+public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.entity.Entity>
+		implements AbstractDao<Entity> {
 	private SessionFactory sessionFactory;
 
 	@Override
@@ -44,4 +51,17 @@ public class AbstractDaoImpl<Entity extends edu.stthomas.gps.familyrecipesystem.
 		session.save(entity);
 	}
 
+	protected List<Integer> getMemberIdsOfRelatedFamilies() {
+		final Session session = this.sessionFactory.getCurrentSession();
+		final AppSession appSession = AppSession.getInstance();
+		final List<Integer> familyIds = new ArrayList<Integer>();
+		for (final Family family : appSession.getUser().getFamilies()) {
+			familyIds.add(family.getId());
+		}
+
+		return session
+				.createQuery(
+				"SELECT DISTINCT m1.id FROM member AS m1 JOIN m1.families AS f1 WHERE f1.id IN (:families)")
+				.setParameterList("families", familyIds).list();
+	}
 }

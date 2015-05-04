@@ -46,9 +46,7 @@ public class TestDataGenerator {
 		johnJohnson.setLastName("Johnson");
 		johnJohnson.setFirstName("John");
 		johnJohnson.setPassword("abc123");
-		final List<Family> families = new ArrayList<Family>();
-		families.add(johnson);
-		johnJohnson.setFamilies(families);
+		johnJohnson.addFamily(johnson);
 		memberDao.insert(johnJohnson);
 
 		final Member maryJohnson = new MemberImpl();
@@ -56,9 +54,7 @@ public class TestDataGenerator {
 		maryJohnson.setLastName("Mary");
 		maryJohnson.setFirstName("John");
 		maryJohnson.setPassword("abc123");
-		families.clear();
-		families.add(johnson);
-		maryJohnson.setFamilies(families);
+		maryJohnson.addFamily(johnson);
 		memberDao.insert(maryJohnson);
 
 		final Member homerSimpson = new MemberImpl();
@@ -66,9 +62,8 @@ public class TestDataGenerator {
 		homerSimpson.setLastName("Simpson");
 		homerSimpson.setFirstName("Homer");
 		homerSimpson.setPassword("duff");
-		families.clear();
-		families.add(simpson);
-		homerSimpson.setFamilies(families);
+		homerSimpson.addFamily(simpson);
+		homerSimpson.addFamily(johnson);
 		memberDao.insert(homerSimpson);
 
 		final Member margeSimpson = new MemberImpl();
@@ -76,9 +71,7 @@ public class TestDataGenerator {
 		margeSimpson.setLastName("Simpson");
 		margeSimpson.setFirstName("Marge");
 		margeSimpson.setPassword("abc123");
-		families.clear();
-		families.add(simpson);
-		margeSimpson.setFamilies(families);
+		margeSimpson.addFamily(simpson);
 		memberDao.insert(margeSimpson);
 
 		final Member bartSimpson = new MemberImpl();
@@ -86,9 +79,7 @@ public class TestDataGenerator {
 		bartSimpson.setLastName("Simpson");
 		bartSimpson.setFirstName("Bart");
 		bartSimpson.setPassword("abc123");
-		families.clear();
-		families.add(simpson);
-		bartSimpson.setFamilies(families);
+		bartSimpson.addFamily(simpson);
 		memberDao.insert(bartSimpson);
 
 		// Recipes
@@ -108,7 +99,8 @@ public class TestDataGenerator {
 
 		final Ingredient tomato = new IngredientImpl();
 		tomato.setName("tomato");
-		final IngredientOptions tomatoOption = new IngredientOptionsImpl(2.5f, Unit.PC, tomato, noodleBolognese);
+		final IngredientOptions tomatoOption = new IngredientOptionsImpl(2.5f, Unit.PC, tomato,
+				noodleBolognese);
 		ingredientOptions.add(tomatoOption);
 
 		noodleBolognese.setIngredientOptions(ingredientOptions);

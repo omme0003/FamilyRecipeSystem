@@ -43,7 +43,7 @@ public class MemberImpl implements Member {
 	private final List<Recipe> recipes;
 
 	@ManyToMany(targetEntity = FamilyImpl.class, cascade = CascadeType.ALL)
-	@JoinTable(name = "member_family", joinColumns = @JoinColumn(name = "family_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
+	@JoinTable(name = "member_family", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "family_id"))
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Family> families;
 
@@ -195,7 +195,8 @@ public class MemberImpl implements Member {
 
 	@Override
 	public boolean validateRequiredFields() {
-		return !(this.userName.isEmpty() || this.lastName.isEmpty() || this.firstName.isEmpty() || this.password.isEmpty());
+		return !(this.userName.isEmpty() || this.lastName.isEmpty() || this.firstName.isEmpty() || this.password
+				.isEmpty());
 	}
 
 }
