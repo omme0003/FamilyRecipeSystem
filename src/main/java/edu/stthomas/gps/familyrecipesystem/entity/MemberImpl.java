@@ -198,5 +198,10 @@ public class MemberImpl implements Member {
 		return !(this.userName.isEmpty() || this.lastName.isEmpty() || this.firstName.isEmpty() || this.password
 				.isEmpty());
 	}
+	
+	@Override
+	public String toString() {
+		return this.firstName + " " + this.lastName;
+	}
 
 }
