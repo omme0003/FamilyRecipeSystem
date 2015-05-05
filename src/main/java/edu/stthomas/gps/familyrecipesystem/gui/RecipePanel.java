@@ -54,7 +54,10 @@ public class RecipePanel extends JPanel {
 		setSize(new Dimension(360, 554));
 		setLayout(null);
 		
-		boolean canEdit = AppSession.getInstance().getUser().getId().equals(recipe.getManagedBy().getId());
+		boolean canEdit = false;
+		if (recipeId <= 0 || AppSession.getInstance().getUser().getId().equals(recipe.getManagedBy().getId())) {
+			canEdit = true;
+		}
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

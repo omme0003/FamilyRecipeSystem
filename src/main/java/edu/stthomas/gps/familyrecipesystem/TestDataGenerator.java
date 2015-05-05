@@ -115,5 +115,7 @@ public class TestDataGenerator {
 		homerSimpsonDogBurger.addIngredient(1f, Unit.LBS, "hamburger meat");
 		homerSimpsonDogBurger.addIngredient(1f, Unit.PC, "large roll");
 		recipeService.insertOrUpdate(homerSimpsonDogBurger);
+		
+		memberService.logout();
 	}
 }
