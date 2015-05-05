@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Color;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,6 +15,7 @@ import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
+import edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl;
 import edu.stthomas.gps.familyrecipesystem.service.FamilyService;
 import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
@@ -71,5 +73,22 @@ public class RecipeListPanel extends JPanel {
 		    }
 		};
 		listResults.addMouseListener(mouseListener);
+		
+		if (member.getId() == AppSession.getInstance().getUser().getId()) {
+			listResults.setBounds(5, 5, 350, 514);
+			JButton addNewRecipeButton = new JButton("Add New Recipe");
+			addNewRecipeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Recipe recipe = new RecipeImpl();
+					recipe.setName("New Recipe");
+					recipe.setDescription("How do you make this?");
+					recipe.setId(0);
+					JPanel panel = new RecipePanel(CTX, parent, recipe);
+					parent.setPanel(panel);
+				}
+			});
+			addNewRecipeButton.setBounds(30, 524, 300, 25);
+			add(addNewRecipeButton);
+		}
 	}
 }
