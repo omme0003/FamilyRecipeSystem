@@ -2,6 +2,8 @@ package edu.stthomas.gps.familyrecipesystem.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,13 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
+import edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
 
@@ -59,5 +64,18 @@ public class RecipeListPanel extends JPanel {
 		    }
 		};
 		listResults.addMouseListener(mouseListener);
+		
+		if (member.getId() == AppSession.getInstance().getUser().getId()) {
+			listResults.setBounds(5, 5, 350, 514);
+			JButton addNewRecipeButton = new JButton("Add New Recipe");
+			addNewRecipeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JPanel panel = new RecipePanel(CTX, parent, 0);
+					parent.setPanel(panel);
+				}
+			});
+			addNewRecipeButton.setBounds(30, 524, 300, 25);
+			add(addNewRecipeButton);
+		}
 	}
 }

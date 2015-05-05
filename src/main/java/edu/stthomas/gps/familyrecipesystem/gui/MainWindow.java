@@ -96,8 +96,10 @@ public class MainWindow {
 		toolBar.add(btnSearch);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel panel = new SearchPanel(CTX, MainWindow.this);
-				setPanel(panel);
+				if (AppSession.getInstance().getUser() != null) {
+					JPanel panel = new SearchPanel(CTX, MainWindow.this);
+					setPanel(panel);
+				}
 			}
 		});
 
@@ -113,8 +115,10 @@ public class MainWindow {
 		toolBar.add(btnUsers);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel panel = new PeoplePanel(CTX, MainWindow.this);
-				setPanel(panel);
+				if (AppSession.getInstance().getUser() != null) {
+					JPanel panel = new PeoplePanel(CTX, MainWindow.this);
+					setPanel(panel);
+				}
 			}
 		});
 
@@ -130,8 +134,10 @@ public class MainWindow {
 		toolBar.add(btnRecipes);
 		btnRecipes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel panel = new RecipeListPanel(CTX, MainWindow.this, AppSession.getInstance().getUser());
-				setPanel(panel);
+				if (AppSession.getInstance().getUser() != null) {
+					JPanel panel = new RecipeListPanel(CTX, MainWindow.this, AppSession.getInstance().getUser());
+					setPanel(panel);
+				}
 			}
 		});
 	}
