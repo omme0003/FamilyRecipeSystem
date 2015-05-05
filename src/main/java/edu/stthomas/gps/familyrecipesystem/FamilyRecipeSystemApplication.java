@@ -27,7 +27,7 @@ public class FamilyRecipeSystemApplication {
 		final TestDataGenerator generator = new TestDataGenerator(FamilyRecipeSystemApplication.CTX);
 		generator.generate();
 
-		// new FamilyRecipeSystemApplication();
+		new FamilyRecipeSystemApplication();
 
 		final MemberService memberService =
 				FamilyRecipeSystemApplication.CTX.getBean("memberService",

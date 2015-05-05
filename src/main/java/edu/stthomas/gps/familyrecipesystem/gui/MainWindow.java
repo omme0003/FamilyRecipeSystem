@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 
@@ -127,5 +128,11 @@ public class MainWindow {
 		btnRecipes.setForeground(Color.WHITE);
 		btnRecipes.setBorderPainted(false);
 		toolBar.add(btnRecipes);
+		btnRecipes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel panel = new RecipeListPanel(CTX, MainWindow.this, AppSession.getInstance().getUser());
+				setPanel(panel);
+			}
+		});
 	}
 }

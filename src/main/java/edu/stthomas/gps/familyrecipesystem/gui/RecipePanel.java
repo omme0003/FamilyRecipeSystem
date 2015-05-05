@@ -23,6 +23,7 @@ import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 import edu.stthomas.gps.familyrecipesystem.entity.Unit;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
+import javax.swing.ScrollPaneConstants;
 
 public class RecipePanel extends JPanel {
 	
@@ -49,7 +50,8 @@ public class RecipePanel extends JPanel {
 		boolean canEdit = AppSession.getInstance().getUser().getId().equals(recipe.getManagedBy().getId());
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 344, 538);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(5, 5, 354, 544);
 		add(scrollPane);
 		
 		panel = new JPanel();
@@ -57,13 +59,14 @@ public class RecipePanel extends JPanel {
 		scrollPane.setViewportView(panel);
 		
 		recipeName = new JTextPane();
-		recipeName.setMaximumSize(new Dimension(360, 60));
+		recipeName.setMaximumSize(new Dimension(354, 60));
 		recipeName.setBackground(UIManager.getColor("InternalFrame.background"));
 		recipeName.setText(recipe.getName());
 		recipeName.setEditable(canEdit);
 		panel.add(recipeName);
 		
 		ingredientsTable = new JTable(new IngredientsTableModel(canEdit));
+		ingredientsTable.setMaximumSize(new Dimension(354, 0));
 		IngredientsTableModel model = (IngredientsTableModel) ingredientsTable.getModel();
 		panel.add(ingredientsTable.getTableHeader());
 		panel.add(ingredientsTable);
@@ -76,13 +79,7 @@ public class RecipePanel extends JPanel {
 			data[1] = ig.getUnit().toString();
 			data[2] = ig.getIngredient().getName();
 			data[3] = ig.getId().toString();
-			model.addRow(data);
-			
-//			ingredientUnit = new JComboBox<Unit>();
-//			for (Unit unit: Unit.values()) {
-//				ingredientUnit.addItem(unit);
-//			}
-			
+			model.addRow(data);		
 		}
 		
 		if (canEdit) {
@@ -97,7 +94,7 @@ public class RecipePanel extends JPanel {
 		}
 		
 		instructionsHeader = new JTextPane();
-		instructionsHeader.setMaximumSize(new Dimension(360, 60));
+		instructionsHeader.setMaximumSize(new Dimension(354, 60));
 		instructionsHeader.setText("Instructions:");
 		instructionsHeader.setEditable(false);
 		panel.add(instructionsHeader);
@@ -110,6 +107,7 @@ public class RecipePanel extends JPanel {
 		panel.add(Box.createVerticalGlue());
 		
 		commentsHeader = new JTextPane();
+		commentsHeader.setMaximumSize(new Dimension(354, 2147483647));
 		commentsHeader.setText("Comments");
 		commentsHeader.setEditable(false);
 		panel.add(commentsHeader);

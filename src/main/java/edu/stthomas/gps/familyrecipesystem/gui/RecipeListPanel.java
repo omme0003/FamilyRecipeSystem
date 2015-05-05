@@ -29,48 +29,43 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 
-public class PeoplePanel extends JPanel {
+public class RecipeListPanel extends JPanel {
 
-	private DefaultListModel<Member> listModel;
-	private JList<Member> listResults;
+	private DefaultListModel<Recipe> listModel;
+	private JList<Recipe> listResults;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PeoplePanel(ClassPathXmlApplicationContext CTX, final MainWindow parent) {
+	public RecipeListPanel(ClassPathXmlApplicationContext CTX, final MainWindow parent, final Member member) {
 		
 		setBackground(Color.WHITE);
 		setSize(new Dimension(360, 554));
 		setLayout(null);
 		
-		listModel = new DefaultListModel<Member>();
-		listResults = new JList<Member>(listModel);
+		RecipeService recipeService = CTX.getBean("recipeService", RecipeServiceImpl.class);
+		
+		listModel = new DefaultListModel<Recipe>();
+		listResults = new JList<Recipe>(listModel);
 		listResults.setBackground(new Color(245, 245, 245));
 		listResults.setBounds(5, 5, 350, 544);
 		add(listResults);
 		
-		List<Family> families = new ArrayList<Family>();
-		List<Member> members = new ArrayList<Member>();
+		List<Recipe> recipes = new ArrayList<Recipe>();
 		
-		families = AppSession.getInstance().getUser().getFamilies();
-		for(Family family: families) {
-			members.addAll(family.getMembers());
-		}
+		recipes = recipeService.getByMember(member);
 		
-		members = new ArrayList<Member>(new LinkedHashSet<Member>(members));
-		
-		for(Member member: members) {
-			listModel.addElement(member);
+		for(Recipe recipe: recipes) {
+			listModel.addElement(recipe);
 		}
 		
 		MouseListener mouseListener = new MouseAdapter() {
 		    public void mouseClicked(MouseEvent event) {
 		        if (event.getClickCount() == 2) {
-		        	Member member = listResults.getSelectedValue();
-		        	JPanel panel = new RecipeListPanel(CTX, parent, member);
+		        	Recipe recipe = listResults.getSelectedValue();
+		        	JPanel panel = new RecipePanel(CTX, parent, recipe);
 					parent.setPanel(panel);
 		        }
 		    }
