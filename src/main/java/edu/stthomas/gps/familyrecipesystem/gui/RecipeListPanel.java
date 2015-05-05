@@ -1,23 +1,35 @@
 package edu.stthomas.gps.familyrecipesystem.gui;
 
-import java.awt.Color;
+import javax.swing.JPanel;
+
 import java.awt.Dimension;
+import java.awt.Color;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JTextField;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import edu.stthomas.gps.familyrecipesystem.AppSession;
+import edu.stthomas.gps.familyrecipesystem.entity.Family;
+import edu.stthomas.gps.familyrecipesystem.entity.Member;
+import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
+import edu.stthomas.gps.familyrecipesystem.service.FamilyService;
+import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
+import edu.stthomas.gps.familyrecipesystem.service.MemberService;
+import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
+import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
+import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
+
+import javax.swing.JList;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import edu.stthomas.gps.familyrecipesystem.entity.Member;
-import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
-import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
-import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
 
 public class RecipeListPanel extends JPanel {
 
@@ -53,7 +65,7 @@ public class RecipeListPanel extends JPanel {
 		    public void mouseClicked(MouseEvent event) {
 		        if (event.getClickCount() == 2) {
 		        	Recipe recipe = listResults.getSelectedValue();
-		        	JPanel panel = new RecipePanel(CTX, parent, recipe.getId());
+		        	JPanel panel = new RecipePanel(CTX, parent, recipe);
 					parent.setPanel(panel);
 		        }
 		    }

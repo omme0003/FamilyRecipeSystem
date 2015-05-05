@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,10 +20,10 @@ import edu.stthomas.gps.familyrecipesystem.AppSession;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptionsImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
-import edu.stthomas.gps.familyrecipesystem.entity.RecipeImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Unit;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeServiceImpl;
+import javax.swing.ScrollPaneConstants;
 
 public class RecipePanel extends JPanel {
 	
@@ -41,15 +40,9 @@ public class RecipePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public RecipePanel(ClassPathXmlApplicationContext CTX, final MainWindow parent, final int recipeId) {
+	public RecipePanel(ClassPathXmlApplicationContext CTX, final MainWindow parent, Recipe recipeTemp) {
 		final RecipeService recipeService = CTX.getBean("recipeService", RecipeServiceImpl.class);
-		Recipe recipe;
-		if (recipeId > 0) {
-			recipe = recipeService.getById(recipeId);
-		}
-		else {
-			recipe = new RecipeImpl();
-		}
+		final Recipe recipe = recipeService.getById(recipeTemp.getId());
 		
 		setSize(new Dimension(360, 554));
 		setLayout(null);
