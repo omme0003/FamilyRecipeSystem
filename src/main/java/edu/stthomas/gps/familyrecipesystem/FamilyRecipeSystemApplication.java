@@ -6,10 +6,14 @@ import java.util.List;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.stthomas.gps.familyrecipesystem.entity.CommentImpl;
+import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 import edu.stthomas.gps.familyrecipesystem.entity.Unit;
 import edu.stthomas.gps.familyrecipesystem.gui.MainWindow;
 import edu.stthomas.gps.familyrecipesystem.service.CommentService;
+import edu.stthomas.gps.familyrecipesystem.service.CommentServiceImpl;
+import edu.stthomas.gps.familyrecipesystem.service.FamilyService;
+import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.RecipeService;
@@ -48,7 +52,8 @@ public class FamilyRecipeSystemApplication {
 		// System.out.println(AppSession.getInstance().getUser().getFamilies());
 
 		final RecipeService recipeService = FamilyRecipeSystemApplication.CTX.getBean("recipeService", RecipeServiceImpl.class);
-		final CommentService commentService = FamilyRecipeSystemApplication.CTX.getBean("commentService", CommentService.class);
+		final CommentService commentService = FamilyRecipeSystemApplication.CTX.getBean("commentService", CommentServiceImpl.class);
+		final FamilyService familyService = FamilyRecipeSystemApplication.CTX.getBean("familyService", FamilyServiceImpl.class);
 		final List<Recipe> recipes = recipeService.searchByKeyword("noodle");
 		System.out.println(recipes);
 		final Recipe recipe = recipes.get(0);
@@ -63,7 +68,12 @@ public class FamilyRecipeSystemApplication {
 
 		commentService.insert(new CommentImpl("This is a comment", AppSession.getInstance().getUser(), recipe));
 
-		new FamilyRecipeSystemApplication();
+		final Member member = memberService.getById(3);
+		System.out.println(member.getFamilies());
+		System.out.println(recipeService.getByMember(member));
+		System.out.println(familyService.getById(1).getMembers());
+		
+//		new FamilyRecipeSystemApplication();
 	}
 
 	public FamilyRecipeSystemApplication() {

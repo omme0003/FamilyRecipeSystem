@@ -9,6 +9,7 @@ import edu.stthomas.gps.familyrecipesystem.dao.IngredientDao;
 import edu.stthomas.gps.familyrecipesystem.dao.RecipeDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Ingredient;
 import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
+import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
 
 public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements RecipeService {
@@ -52,5 +53,10 @@ public class RecipeServiceImpl extends AbstractServiceImpl<RecipeDao> implements
 	@Override
 	public Recipe getById(final Integer id) {
 		return this.getDao().getById(id);
+	}
+
+	@Override
+	public List<Recipe> getByMember(Member member) {
+		return this.getDao().getByMember(member);
 	}
 }

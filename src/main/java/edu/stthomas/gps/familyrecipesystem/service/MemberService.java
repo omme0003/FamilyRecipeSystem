@@ -12,5 +12,7 @@ public interface MemberService extends AbstractService<MemberDao> {
 	public void logout();
 
 	public void create(final Member member) throws RequiredAttributesEmptyException, DuplicateUserException;
+	
+	public Member getById(final Integer id);
 
 }

@@ -11,4 +11,9 @@ public class FamilyServiceImpl extends AbstractServiceImpl<FamilyDao> implements
 	public List<Family> getAllFamilies() {
 		return this.getDao().getAllFamilies();
 	}
+	
+	@Override
+	public Family getById(final Integer id) {
+		return this.getDao().getById(id);
+	}
 }

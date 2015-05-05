@@ -33,4 +33,9 @@ public class MemberServiceImpl extends AbstractServiceImpl<MemberDao> implements
 		AppSession.getInstance().setUser(null);
 	}
 
+	@Override
+	public Member getById(Integer id) {
+		return this.getDao().getById(id);
+	}
+
 }

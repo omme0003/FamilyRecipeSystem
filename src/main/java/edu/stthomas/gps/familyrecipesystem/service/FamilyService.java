@@ -9,4 +9,6 @@ public interface FamilyService extends AbstractService<FamilyDao> {
 
 	public List<Family> getAllFamilies();
 
+	public Family getById(Integer id);
+	
 }

@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity(name = "family")
 public class FamilyImpl implements Family {
 
@@ -24,6 +27,7 @@ public class FamilyImpl implements Family {
 	private String name;
 
 	@ManyToMany(targetEntity = MemberImpl.class, cascade = CascadeType.ALL, mappedBy = "families")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Member> members;
 
 	@Override
