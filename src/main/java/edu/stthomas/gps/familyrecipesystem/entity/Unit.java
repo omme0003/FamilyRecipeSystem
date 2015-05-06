@@ -4,7 +4,8 @@ import javax.persistence.Entity;
 
 @Entity
 public enum Unit {
-	G("g", "gram"), KG("kg", "kilogram"), LBS("lbs", "pound"), TSP("tsp", "teaspoon"), TBSP("tbsp", "tablespoon"), FLOZ("floz", "fluid ounce"), GAL("gal",
+	G("g", "gram"), KG("kg", "kilogram"), LBS("lbs", "pound"), TSP("tsp", "teaspoon"), TBSP("tbsp", "tablespoon"), FLOZ("floz",
+			"fluid ounce"), GAL("gal",
 			"gallone"), PC("pc", "pieces"), C("c", "cups");
 
 	private final String nameShort;

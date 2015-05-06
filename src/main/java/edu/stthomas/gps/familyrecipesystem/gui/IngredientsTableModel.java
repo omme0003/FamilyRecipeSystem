@@ -6,58 +6,58 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class IngredientsTableModel extends AbstractTableModel {
-	
-	private String[] columnNames = {"Quantity", "Unit", "Name"};
-	private List<String[]> data;
-	private boolean canEdit;
-	
-	public IngredientsTableModel(boolean canEdit) {
+
+	private final String[] columnNames = { "Quantity", "Unit", "Name" };
+	private final List<Object[]> data;
+	private final boolean canEdit;
+
+	public IngredientsTableModel(final boolean canEdit) {
 		this.canEdit = canEdit;
-		this.data = new ArrayList<String[]>();
+		this.data = new ArrayList<Object[]>();
 	}
 
 	@Override
 	public int getRowCount() {
-		return data.size();
+		return this.data.size();
 	}
-	
+
 	@Override
-	public String getColumnName(int col) {
-		return columnNames[col];
+	public String getColumnName(final int col) {
+		return this.columnNames[col];
 	}
 
 	@Override
 	public int getColumnCount() {
-		return columnNames.length;
+		return this.columnNames.length;
 	}
 
 	@Override
-	public Object getValueAt(int row, int col) {
-		return data.get(row)[col];
+	public Object getValueAt(final int row, final int col) {
+		return this.data.get(row)[col];
 	}
-	
+
 	@Override
-	public boolean isCellEditable(int row, int col) {
-		return canEdit;
+	public boolean isCellEditable(final int row, final int col) {
+		return this.canEdit;
 	}
-	
+
 	@Override
-	public void setValueAt(Object value, int row, int col) {
-		String[] newData = data.get(row);
+	public void setValueAt(final Object value, final int row, final int col) {
+		final Object[] newData = this.data.get(row);
 		newData[col] = value.toString();
-		data.set(row, newData);
-		fireTableCellUpdated(row, col);
+		this.data.set(row, newData);
+		this.fireTableCellUpdated(row, col);
 	}
-	
+
 	public void addRow() {
-		String[] str = {"", "", "", "-1"};
-		data.add(str);
-		fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+		final String[] str = { "", "", "", "-1" };
+		this.data.add(str);
+		this.fireTableRowsInserted(this.getRowCount(), this.getRowCount());
 	}
-	
-	public void addRow(String[] newData) {
-		data.add(newData);
-		fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+
+	public void addRow(final String[] newData) {
+		this.data.add(newData);
+		this.fireTableRowsInserted(this.getRowCount(), this.getRowCount());
 	}
 
 }
