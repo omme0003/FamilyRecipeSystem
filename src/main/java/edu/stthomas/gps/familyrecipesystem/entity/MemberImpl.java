@@ -103,6 +103,11 @@ public class MemberImpl implements Member {
 	}
 
 	@Override
+	public final String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
+
+	@Override
 	public final void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
@@ -198,7 +203,7 @@ public class MemberImpl implements Member {
 		return !(this.userName.isEmpty() || this.lastName.isEmpty() || this.firstName.isEmpty() || this.password
 				.isEmpty());
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.firstName + " " + this.lastName;

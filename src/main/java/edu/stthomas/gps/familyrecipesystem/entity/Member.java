@@ -49,4 +49,6 @@ public interface Member extends Entity {
 
 	public boolean validateRequiredFields();
 
+	String getFullName();
+
 }

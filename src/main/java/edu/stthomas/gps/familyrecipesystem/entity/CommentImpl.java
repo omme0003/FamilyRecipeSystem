@@ -40,6 +40,7 @@ public class CommentImpl implements Comment {
 		this.setMember(member);
 		this.setRecipe(recipe);
 		this.setCreated(new Date());
+		recipe.addComment(this);
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class CommentImpl implements Comment {
 
 	@Override
 	public void setText(final String text) {
-		this.text = text;
+		this.text = text.trim();
 	}
 
 	@Override
