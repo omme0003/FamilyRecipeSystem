@@ -1,6 +1,7 @@
 package edu.stthomas.gps.familyrecipesystem;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import edu.stthomas.gps.familyrecipesystem.dao.FamilyDao;
 import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
@@ -89,7 +90,7 @@ public class TestDataGenerator {
 		noodleBolognese.setName("Noodle bolognese");
 		noodleBolognese.setDescription("Description");
 		recipeService.insertOrUpdate(noodleBolognese);
-		
+
 		final Recipe homerSimpsonDogBurger = new RecipeImpl();
 		homerSimpsonDogBurger.setName("Dog Burger");
 		homerSimpsonDogBurger.setDescription("Marinate hot dogs in Duff Beer for 24 hours. "
@@ -100,7 +101,7 @@ public class TestDataGenerator {
 		homerSimpsonDogBurger.addIngredient(1f, Unit.LBS, "hamburger meat");
 		homerSimpsonDogBurger.addIngredient(1f, Unit.PC, "large roll");
 		recipeService.insertOrUpdate(homerSimpsonDogBurger);
-		
+
 		memberService.logout();
 		memberService.login("marge", "abc123");
 
@@ -110,10 +111,10 @@ public class TestDataGenerator {
 		bakedPotato.setName("Baked potato");
 		bakedPotato.setDescription("Description");
 		recipeService.insertOrUpdate(bakedPotato);
-		
+
 		memberService.logout();
 		memberService.login("j.johnson", "abc123");
-		
+
 		final Recipe carrotCake = new RecipeImpl();
 		carrotCake.setName("Carrot Cake");
 		carrotCake.setDescription("Preheat oven to 350F. "
@@ -127,7 +128,26 @@ public class TestDataGenerator {
 		carrotCake.addIngredient(1f, Unit.TBSP, "baking powder");
 		carrotCake.addIngredient(1.5f, Unit.C, "sugar");
 		recipeService.insertOrUpdate(carrotCake);
-		
+
+		final Recipe applePie = new RecipeImpl();
+		applePie.setName("Granny's apple pie");
+		applePie.setDescription(
+				"1. Preheat oven to 425 degrees F (220 degrees C). Melt the butter in a saucepan. "
+						+ "Stir in flour to form a paste. Add water, white sugar and brown sugar, and bring to a boil. "
+						+ "Reduce temperature and let simmer.\n"
+						+ "2. Place the bottom crust in your pan. Fill with apples, mounded slightly. "
+						+ "Cover with a lattice work crust. Gently pour the sugar and butter liquid over the crust. "
+						+ "Pour slowly so that it does not run off.\n"
+						+ "3. Bake 15 minutes in the preheated oven. Reduce the temperature to 350 degrees F (175 degrees C). "
+						+ "Continue baking for 35 to 45 minutes, until apples are soft.");
+		applePie.addIngredient(.5f, Unit.C, "unsalted butter");
+		applePie.addIngredient(3f, Unit.TBSP, "all-purpose flour");
+		applePie.addIngredient(.25f, Unit.C, "water");
+		applePie.addIngredient(0.5f, Unit.C, "white sugar");
+		applePie.addIngredient(.5f, Unit.C, "brown sugar");
+		applePie.addIngredient(8f, Unit.C, "Granny smith apples");
+		recipeService.insertOrUpdate(applePie);
+
 		memberService.logout();
 	}
 }

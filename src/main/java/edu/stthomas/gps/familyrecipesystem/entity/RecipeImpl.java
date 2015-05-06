@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "recipe")
 @Table(name = "recipe")
@@ -33,6 +34,7 @@ public class RecipeImpl implements Recipe {
 	private String name;
 
 	@Column
+	@Type(type = "text")
 	private String description;
 
 	@Column
@@ -51,7 +53,8 @@ public class RecipeImpl implements Recipe {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<Comment> comments;
 
-	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)//, orphanRemoval = true)
+	@OneToMany(targetEntity = IngredientOptionsImpl.class, mappedBy = "recipe", cascade = CascadeType.ALL)
+	// , orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private final List<IngredientOptions> ingredientOptions;
 

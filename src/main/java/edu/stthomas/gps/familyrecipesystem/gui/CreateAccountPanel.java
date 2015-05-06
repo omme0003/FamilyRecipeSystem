@@ -1,14 +1,17 @@
 package edu.stthomas.gps.familyrecipesystem.gui;
 
-import javax.swing.JPanel;
-import java.awt.Dimension;
-import javax.swing.JTextPane;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
+import java.util.List;
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,140 +24,132 @@ import edu.stthomas.gps.familyrecipesystem.service.FamilyServiceImpl;
 import edu.stthomas.gps.familyrecipesystem.service.MemberService;
 import edu.stthomas.gps.familyrecipesystem.service.MemberServiceImpl;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.List;
-
-import javax.swing.JComboBox;
-
 public class CreateAccountPanel extends JPanel {
-	private JTextField textFieldFirstName;
-	private JPasswordField passwordFieldConfirm;
-	private JPasswordField passwordField;
-	private JTextField textFieldLastName;
-	private JTextField textFieldUsername;
+	private final JTextField textFieldFirstName;
+	private final JPasswordField passwordFieldConfirm;
+	private final JPasswordField passwordField;
+	private final JTextField textFieldLastName;
+	private final JTextField textFieldUsername;
 
 	/**
 	 * Create the panel.
 	 */
-	public CreateAccountPanel(ClassPathXmlApplicationContext CTX, final MainWindow parent) {
-		setBackground(new Color(255, 255, 255));
-		setSize(new Dimension(360, 554));
-		setLayout(null);
-		
-		JTextPane txtpnTitle = new JTextPane();
+	public CreateAccountPanel(final ClassPathXmlApplicationContext CTX, final MainWindow parent) {
+		this.setBackground(new Color(255, 255, 255));
+		this.setSize(new Dimension(360, 554));
+		this.setLayout(null);
+
+		final JTextPane txtpnTitle = new JTextPane();
 		txtpnTitle.setText("My Family Recipes");
 		txtpnTitle.setFont(new Font("Cronos Pro", Font.ITALIC, 32));
 		txtpnTitle.setFocusTraversalKeysEnabled(false);
 		txtpnTitle.setEditable(false);
 		txtpnTitle.setBackground(Color.WHITE);
 		txtpnTitle.setBounds(60, 60, 240, 40);
-		add(txtpnTitle);
-		
-		JLabel labelFirstName = new JLabel("First Name:");
+		this.add(txtpnTitle);
+
+		final JLabel labelFirstName = new JLabel("First Name:");
 		labelFirstName.setBounds(40, 140, 200, 16);
-		add(labelFirstName);
-		
-		textFieldFirstName = new JTextField();
-		textFieldFirstName.setSize(new Dimension(284, 21));
-		textFieldFirstName.setBounds(38, 158, 284, 21);
-		add(textFieldFirstName);
-		textFieldFirstName.setColumns(10);
-		
-		JLabel labelLastName = new JLabel("Last Name:");
+		this.add(labelFirstName);
+
+		this.textFieldFirstName = new JTextField();
+		this.textFieldFirstName.setSize(new Dimension(284, 21));
+		this.textFieldFirstName.setBounds(38, 158, 284, 21);
+		this.add(this.textFieldFirstName);
+		this.textFieldFirstName.setColumns(10);
+
+		final JLabel labelLastName = new JLabel("Last Name:");
 		labelLastName.setBounds(40, 190, 200, 16);
-		add(labelLastName);
-		
-		textFieldLastName = new JTextField();
-		textFieldLastName.setSize(new Dimension(284, 21));
-		textFieldLastName.setColumns(10);
-		textFieldLastName.setBounds(40, 208, 284, 21);
-		add(textFieldLastName);
-		
-		JLabel labelFamilies = new JLabel("Family");
+		this.add(labelLastName);
+
+		this.textFieldLastName = new JTextField();
+		this.textFieldLastName.setSize(new Dimension(284, 21));
+		this.textFieldLastName.setColumns(10);
+		this.textFieldLastName.setBounds(40, 208, 284, 21);
+		this.add(this.textFieldLastName);
+
+		final JLabel labelFamilies = new JLabel("Family");
 		labelFamilies.setBounds(40, 240, 200, 16);
-		add(labelFamilies);
-		
-		JComboBox<Family> comboBox = new JComboBox<Family>();
+		this.add(labelFamilies);
+
+		final JComboBox<Family> comboBox = new JComboBox<Family>();
 		comboBox.setBounds(38, 258, 284, 27);
-		List<Family> families = CTX.getBean("familyService", FamilyServiceImpl.class).getAllFamilies();
-		for(Family family: families) {
+		final List<Family> families = CTX.getBean("familyService", FamilyServiceImpl.class).getAllFamilies();
+		for (final Family family : families) {
 			comboBox.addItem(family);
 		}
-		add(comboBox);
-		
-		JLabel labelUsername = new JLabel("Username:");
+		this.add(comboBox);
+
+		final JLabel labelUsername = new JLabel("Username:");
 		labelUsername.setBounds(40, 290, 200, 16);
-		add(labelUsername);
-		
-		textFieldUsername = new JTextField();
-		textFieldUsername.setSize(new Dimension(280, 21));
-		textFieldUsername.setColumns(10);
-		textFieldUsername.setBounds(38, 308, 284, 21);
-		add(textFieldUsername);
-		
-		JLabel labelPassword = new JLabel("Password:");
+		this.add(labelUsername);
+
+		this.textFieldUsername = new JTextField();
+		this.textFieldUsername.setSize(new Dimension(280, 21));
+		this.textFieldUsername.setColumns(10);
+		this.textFieldUsername.setBounds(38, 308, 284, 21);
+		this.add(this.textFieldUsername);
+
+		final JLabel labelPassword = new JLabel("Password:");
 		labelPassword.setBounds(40, 340, 200, 16);
-		add(labelPassword);
-		
-		passwordField = new JPasswordField();
-		passwordField.setSize(new Dimension(280, 21));
-		passwordField.setBounds(38, 358, 284, 21);
-		add(passwordField);
-		
-		JLabel labelConfirmPassword = new JLabel("Confirm Password:");
+		this.add(labelPassword);
+
+		this.passwordField = new JPasswordField();
+		this.passwordField.setSize(new Dimension(280, 21));
+		this.passwordField.setBounds(38, 358, 284, 21);
+		this.add(this.passwordField);
+
+		final JLabel labelConfirmPassword = new JLabel("Confirm Password:");
 		labelConfirmPassword.setBounds(40, 390, 200, 16);
-		add(labelConfirmPassword);
-		
-		passwordFieldConfirm = new JPasswordField();
-		passwordFieldConfirm.setSize(new Dimension(280, 21));
-		passwordFieldConfirm.setBounds(38, 408, 288284, 21);
-		add(passwordFieldConfirm);
-		
-		JTextPane txtpnErrorMessage = new JTextPane();
+		this.add(labelConfirmPassword);
+
+		this.passwordFieldConfirm = new JPasswordField();
+		this.passwordFieldConfirm.setSize(new Dimension(280, 21));
+		this.passwordFieldConfirm.setBounds(38, 408, 284, 21);
+		this.add(this.passwordFieldConfirm);
+
+		final JTextPane txtpnErrorMessage = new JTextPane();
 		txtpnErrorMessage.setVisible(false);
 		txtpnErrorMessage.setEditable(false);
 		txtpnErrorMessage.setForeground(Color.RED);
 		txtpnErrorMessage.setBackground(Color.WHITE);
 		txtpnErrorMessage.setText("Error Message");
 		txtpnErrorMessage.setBounds(40, 438, 280, 30);
-		add(txtpnErrorMessage);
-		
-		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String username = textFieldUsername.getText();
-				String password = String.valueOf(passwordField.getPassword());
-				String passwordCheck = String.valueOf(passwordFieldConfirm.getPassword());
-				if (password.equals(passwordCheck)) {
-					txtpnErrorMessage.setVisible(false);
-					Member member = new MemberImpl();
-					member.setUserName(username);
-					member.setFirstName(textFieldFirstName.getText());
-					member.setLastName(textFieldLastName.getText());
-					member.setPassword(String.valueOf(passwordField.getPassword()));
-					member.addFamily((Family)comboBox.getSelectedItem());
-					try {
-						MemberService memberService = CTX.getBean("memberService", MemberServiceImpl.class);
-						memberService.create(member);
-						memberService.login(username, password);
-						JPanel panel = new SearchPanel(CTX, parent);
-						parent.setPanel(panel);
-					} catch (final DuplicateUserException e1) {
-						txtpnErrorMessage.setText("That username is already taken");
-						txtpnErrorMessage.setVisible(true);
-					} catch (final RequiredAttributesEmptyException e2) {
-						txtpnErrorMessage.setText("One or more required values is missing");
-						txtpnErrorMessage.setVisible(true);
-					}
-				} else {
-					txtpnErrorMessage.setText("Passwords don't match");
+		this.add(txtpnErrorMessage);
+
+		final JButton btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.addActionListener(e -> {
+			final String username = CreateAccountPanel.this.textFieldUsername.getText();
+			final String password = String.valueOf(CreateAccountPanel.this.passwordField.getPassword());
+			final String passwordCheck = String.valueOf(CreateAccountPanel.this.passwordFieldConfirm.getPassword());
+			if (password.equals(passwordCheck)) {
+				txtpnErrorMessage.setVisible(false);
+				final Member member = new MemberImpl();
+				member.setUserName(username);
+				member.setFirstName(CreateAccountPanel.this.textFieldFirstName.getText());
+				member.setLastName(CreateAccountPanel.this.textFieldLastName.getText());
+				member.setPassword(String.valueOf(CreateAccountPanel.this.passwordField.getPassword()));
+				member.addFamily((Family) comboBox.getSelectedItem());
+				try {
+					final MemberService memberService = CTX.getBean("memberService", MemberServiceImpl.class);
+					memberService.create(member);
+					memberService.login(username, password);
+					final JPanel panel = new SearchPanel(CTX, parent);
+					parent.setPanel(panel);
+				} catch (final DuplicateUserException e1) {
+					txtpnErrorMessage.setText("That username is already taken");
+					txtpnErrorMessage.setVisible(true);
+				} catch (final RequiredAttributesEmptyException e2) {
+					txtpnErrorMessage.setText("One or more required values is missing");
 					txtpnErrorMessage.setVisible(true);
 				}
+			} else {
+				txtpnErrorMessage.setText("Passwords don't match");
+				txtpnErrorMessage.setVisible(true);
 			}
 		});
 		btnCreateAccount.setBounds(36, 478, 276, 45);
-		add(btnCreateAccount);
+		this.add(btnCreateAccount);
 
 	}
 }
