@@ -1,15 +1,10 @@
 package edu.stthomas.gps.familyrecipesystem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import edu.stthomas.gps.familyrecipesystem.dao.FamilyDao;
 import edu.stthomas.gps.familyrecipesystem.dao.MemberDao;
 import edu.stthomas.gps.familyrecipesystem.entity.Family;
 import edu.stthomas.gps.familyrecipesystem.entity.FamilyImpl;
-import edu.stthomas.gps.familyrecipesystem.entity.IngredientOptions;
 import edu.stthomas.gps.familyrecipesystem.entity.Member;
 import edu.stthomas.gps.familyrecipesystem.entity.MemberImpl;
 import edu.stthomas.gps.familyrecipesystem.entity.Recipe;
@@ -31,7 +26,7 @@ public class TestDataGenerator {
 		// Families
 		final FamilyDao familyDao = this.ctx.getBean("familyDao", FamilyDao.class);
 		final Family johnson = new FamilyImpl();
-		johnson.setName("Johnson's");
+		johnson.setName("Johnson");
 		familyDao.insert(johnson);
 
 		final Family simpson = new FamilyImpl();
@@ -84,7 +79,7 @@ public class TestDataGenerator {
 		// Recipes
 		final MemberService memberService = FamilyRecipeSystemApplication.getContext().getBean("memberService",
 				MemberServiceImpl.class);
-		final boolean login = memberService.login("homer", "duff");
+		memberService.login("homer", "duff");
 
 		final RecipeService recipeService = this.ctx.getBean("recipeService", RecipeService.class);
 
@@ -93,18 +88,8 @@ public class TestDataGenerator {
 		noodleBolognese.addIngredient(5f, Unit.PC, "tomato");
 		noodleBolognese.setName("Noodle bolognese");
 		noodleBolognese.setDescription("Description");
-		noodleBolognese.setManagedBy(homerSimpson);
 		recipeService.insertOrUpdate(noodleBolognese);
-
-		final Recipe bakedPotato = new RecipeImpl();
-		final List<IngredientOptions> ingredientOptions2 = new ArrayList<IngredientOptions>();
-		bakedPotato.addIngredient(3.5f, Unit.PC, "onion");
-
-		bakedPotato.setName("Baked potato");
-		bakedPotato.setDescription("Description");
-		bakedPotato.setManagedBy(homerSimpson);
-		recipeService.insertOrUpdate(bakedPotato);
-
+		
 		final Recipe homerSimpsonDogBurger = new RecipeImpl();
 		homerSimpsonDogBurger.setName("Dog Burger");
 		homerSimpsonDogBurger.setDescription("Marinate hot dogs in Duff Beer for 24 hours. "
@@ -115,6 +100,33 @@ public class TestDataGenerator {
 		homerSimpsonDogBurger.addIngredient(1f, Unit.LBS, "hamburger meat");
 		homerSimpsonDogBurger.addIngredient(1f, Unit.PC, "large roll");
 		recipeService.insertOrUpdate(homerSimpsonDogBurger);
+		
+		memberService.logout();
+		memberService.login("marge", "abc123");
+
+		final Recipe bakedPotato = new RecipeImpl();
+		bakedPotato.addIngredient(3.5f, Unit.PC, "onion");
+
+		bakedPotato.setName("Baked potato");
+		bakedPotato.setDescription("Description");
+		recipeService.insertOrUpdate(bakedPotato);
+		
+		memberService.logout();
+		memberService.login("j.johnson", "abc123");
+		
+		final Recipe carrotCake = new RecipeImpl();
+		carrotCake.setName("Carrot Cake");
+		carrotCake.setDescription("Preheat oven to 350F. "
+				+ "Beat eggs until fluffy, then slowly fold in other ingredients "
+				+ "until incorporated. Spread batter evenly in jelly roll pan "
+				+ "and bake for 30-40 minutes or until lightly browned.");
+		carrotCake.addIngredient(4f, Unit.PC, "eggs");
+		carrotCake.addIngredient(1.5f, Unit.C, "flour");
+		carrotCake.addIngredient(3f, Unit.PC, "carrot baby food");
+		carrotCake.addIngredient(0.5f, Unit.C, "vegetable oil");
+		carrotCake.addIngredient(1f, Unit.TBSP, "baking powder");
+		carrotCake.addIngredient(1.5f, Unit.C, "sugar");
+		recipeService.insertOrUpdate(carrotCake);
 		
 		memberService.logout();
 	}

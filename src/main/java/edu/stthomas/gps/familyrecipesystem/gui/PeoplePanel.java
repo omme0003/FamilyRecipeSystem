@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Color;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -49,7 +50,7 @@ public class PeoplePanel extends JPanel {
 		listModel = new DefaultListModel<Member>();
 		listResults = new JList<Member>(listModel);
 		listResults.setBackground(new Color(245, 245, 245));
-		listResults.setBounds(5, 5, 350, 544);
+		listResults.setBounds(5, 5, 350, 514);
 		add(listResults);
 		
 		List<Family> families = new ArrayList<Family>();
@@ -76,5 +77,17 @@ public class PeoplePanel extends JPanel {
 		    }
 		};
 		listResults.addMouseListener(mouseListener);
+		
+		JButton logoutButton = new JButton("Log Out");
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MemberService memberService = CTX.getBean("memberService", MemberServiceImpl.class);
+				memberService.logout();
+				JPanel panel = new LoginPanel(CTX, parent);
+				parent.setPanel(panel);
+			}
+		});
+		logoutButton.setBounds(30, 524, 300, 25);
+		add(logoutButton);
 	}
 }

@@ -139,7 +139,7 @@ public class CreateAccountPanel extends JPanel {
 						memberService.create(member);
 						memberService.login(username, password);
 						JPanel panel = new SearchPanel(CTX, parent);
-						parent.setPanel(CreateAccountPanel.this, panel);
+						parent.setPanel(panel);
 					} catch (final DuplicateUserException e1) {
 						txtpnErrorMessage.setText("That username is already taken");
 						txtpnErrorMessage.setVisible(true);
